@@ -1,15 +1,45 @@
+import 'package:e_commerce_application/core/constants/app/app_constants.dart';
 import 'package:e_commerce_application/core/init/theme/app_theme.dart';
+import 'package:e_commerce_application/core/init/theme/light_theme_interface.dart';
 import 'package:flutter/material.dart';
 
-// Normal şartlarda her class'ın bir interface'i olması gerekiyor
-// interface dart dilinde tanımlı değil abstract classlara sadece method ismi yazıp
-// classlara implement ettirmemiz lazım.
-class AppThemeLight extends AppTheme {
-  static AppThemeLight? _instance = AppThemeLight._init();
-
-  static AppThemeLight? get instance => _instance;
-
+class AppThemeLight extends AppTheme with ILightTheme {
   AppThemeLight._init();
 
-  ThemeData get theme => ThemeData.light();
+  static AppThemeLight? _instance;
+
+  static AppThemeLight get instance {
+    _instance ??= AppThemeLight._init();
+    return _instance!;
+  }
+
+  @override
+  ThemeData get theme => ThemeData(
+        colorScheme: _appColorScheme(),
+        textTheme: TextTheme(
+          headlineLarge: textThemeLight.headlineLarge,
+          headlineMedium: textThemeLight.headlineMedium,
+          headlineSmall: textThemeLight.headlineSmall,
+        ),
+        floatingActionButtonTheme: ThemeData.light().floatingActionButtonTheme.copyWith(),
+        tabBarTheme: TabBarTheme(
+          unselectedLabelStyle: textThemeLight.headlineMedium
+              .copyWith(color: colorSchemeLight.gray),
+        ),
+        fontFamily: ApplicationConstants.FONT_FAMILY,
+      );
+
+  ColorScheme _appColorScheme() {
+    return ColorScheme(
+      brightness: Brightness.light,
+      primary: colorSchemeLight.black,
+      onPrimary: Colors.white,
+      secondary: Colors.green,
+      onSecondary: Colors.green.shade200,
+      error: Colors.red.shade500,
+      onError: Colors.red,
+      surface: Colors.blue,
+      onSurface: Colors.white30,
+    );
+  }
 }
