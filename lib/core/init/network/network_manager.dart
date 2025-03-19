@@ -1,15 +1,17 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:e_commerce_application/core/base/model/base_error.dart';
-import 'package:e_commerce_application/core/base/model/base_model.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
+import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
+import 'package:e_commerce_application/core/init/network/core_dio.dart';
 
 class NetworkManager {
   static NetworkManager? _instance = NetworkManager._init();
 
   static NetworkManager? get instance => _instance;
+
+  late ICoreDio coreDio;
+  late Dio _dio;
 
   NetworkManager._init() {
     final baseOptions = BaseOptions(
@@ -19,6 +21,7 @@ class NetworkManager {
       },
     );
     _dio = Dio(baseOptions);
+    coreDio = CoreDio(baseOptions);
 
     _dio.interceptors.add(
       InterceptorsWrapper(
@@ -40,9 +43,11 @@ class NetworkManager {
       ),
     );
   }
+}
 
-  late Dio _dio;
 
+
+/*
   Future dioGet<T extends BaseModel>(String path, T model) async {
     final response = await _dio.get(path);
 
@@ -59,4 +64,4 @@ class NetworkManager {
         return responseBody;
     }
   }
-}
+*/

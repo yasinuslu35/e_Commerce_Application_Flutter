@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: Provider.of<ThemeNotifier>(context, listen: false).curentTheme,
+      theme: Provider.of<ThemeNotifier>(context, listen: false).currentTheme,
       home: const TestsView(),
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,

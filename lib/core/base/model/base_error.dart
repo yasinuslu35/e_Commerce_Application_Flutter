@@ -1,5 +1,5 @@
 class BaseError {
-  final String message;
+  final String? message;
 
   BaseError({required this.message});
 
