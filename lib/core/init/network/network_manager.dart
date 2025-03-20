@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:e_commerce_application/core/base/model/base_error.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
 import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
@@ -11,7 +10,7 @@ class NetworkManager {
   static NetworkManager? get instance => _instance;
 
   late ICoreDio coreDio;
-  late Dio _dio;
+
 
   NetworkManager._init() {
     final baseOptions = BaseOptions(
@@ -20,9 +19,10 @@ class NetworkManager {
         "val": LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)
       },
     );
-    _dio = Dio(baseOptions);
+    //_dio = Dio(baseOptions);
     coreDio = CoreDio(baseOptions);
 
+    /*
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
@@ -42,10 +42,9 @@ class NetworkManager {
         },
       ),
     );
+    */
   }
 }
-
-
 
 /*
   Future dioGet<T extends BaseModel>(String path, T model) async {
