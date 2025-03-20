@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 abstract class BaseViewModel {
   late BuildContext myContext;
-  ICoreDio coreDio = NetworkManager.instance!.coreDio;
+  ICoreDioNullSafety? coreDio = NetworkManager.instance!.coreDio;
   LocaleManager localeManager = LocaleManager.instance;
   NavigationService navigation = NavigationService.instance;
 

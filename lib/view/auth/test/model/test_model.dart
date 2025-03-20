@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'test_model.g.dart';
 
 @JsonSerializable()
-class TestModel extends BaseModel{
+class TestModel extends BaseModel<TestModel>{
   int? userId;
   int? id;
   String? title;

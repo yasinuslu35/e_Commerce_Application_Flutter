@@ -1,6 +1,4 @@
 import 'package:e_commerce_application/core/constants/app/app_constants.dart';
-import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
-import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
 import 'package:e_commerce_application/core/init/lang/language_service.dart';
 import 'package:e_commerce_application/core/init/navigation/navigation_route.dart';
 import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
@@ -40,6 +38,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: Provider.of<ThemeNotifier>(context, listen: false).currentTheme,
       home: const TestsView(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,
       locale: context.locale,

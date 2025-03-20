@@ -9,7 +9,7 @@ class NetworkManager {
 
   static NetworkManager? get instance => _instance;
 
-  late ICoreDio coreDio;
+  ICoreDioNullSafety? coreDio;
 
 
   NetworkManager._init() {

@@ -1,7 +1,6 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/constants/enums/app_theme_enum.dart';
 import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
-import 'package:e_commerce_application/core/init/network/network_manager.dart';
 import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
 import 'package:e_commerce_application/view/auth/test/model/test_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,9 +43,9 @@ abstract class _TestViewModelBase extends BaseViewModel with Store {
   @action
   Future<void> getSampleRequest() async {
     isLoading = true;
-    final list = await coreDio.myFetch<List<TestModel>,TestModel>(
+    final response = await coreDio!.send<List<TestModel>,TestModel>(
         "x", type: HttpTypes.GET, parseModel: TestModel());
-    if(list is List<TestModel>) {
+    if(response.data is List<TestModel>) {
 
     }
     isLoading = false;

@@ -1,4 +1,3 @@
-import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
 import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
 import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
