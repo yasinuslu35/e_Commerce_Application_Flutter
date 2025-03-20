@@ -15,7 +15,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   @override
   ThemeData get theme => ThemeData(
-        //colorScheme: _appColorScheme(),
+        colorScheme: _appColorScheme(),
         textTheme: TextTheme(
           headlineLarge: textThemeLight.headlineLarge,
           headlineMedium: textThemeLight.headlineMedium,
@@ -32,7 +32,6 @@ class AppThemeLight extends AppTheme with ILightTheme {
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
 
-  /*
   ColorScheme _appColorScheme() {
     return ColorScheme(
       brightness: Brightness.light,
@@ -46,5 +45,5 @@ class AppThemeLight extends AppTheme with ILightTheme {
       onSurface: Colors.white30,
     );
   }
-  */
+
 }

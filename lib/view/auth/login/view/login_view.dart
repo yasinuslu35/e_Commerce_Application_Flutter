@@ -4,6 +4,8 @@ import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_mode
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
+  const LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
@@ -30,6 +32,7 @@ class LoginView extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: context.lowValue),
               child: Placeholder(),
             ),
+
           ],
         ),
       );
