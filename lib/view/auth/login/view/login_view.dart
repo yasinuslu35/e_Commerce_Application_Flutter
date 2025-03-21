@@ -1,11 +1,14 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
-import 'package:e_commerce_application/core/components/button/icon_button.dart';
+import 'package:e_commerce_application/core/components/button/title_elevated_button.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  LoginViewModel? viewModel;
+
+  LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class LoginView extends StatelessWidget {
       onModelReady: (model) {
         model.setContext(context);
         model.init();
+        viewModel = model;
       },
       onPageBuilder: (BuildContext context, LoginViewModel value) =>
           buildScaffold(context),
@@ -21,6 +25,7 @@ class LoginView extends StatelessWidget {
   }
 
   Scaffold buildScaffold(BuildContext context) => Scaffold(
+        key: scaffoldKey,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,9 +35,9 @@ class LoginView extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(),
                 ),
               ),
-              IconNormalButton(
+              TitleElevatedButton(
                 onPressed: () {},
-                icon: Icons.access_alarm,
+                text: "Button",
               ),
             ],
           ),
