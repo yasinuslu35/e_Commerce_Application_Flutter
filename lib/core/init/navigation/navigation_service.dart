@@ -1,4 +1,4 @@
-import 'package:e_commerce_application/core/init/navigation/I_navigation_service.dart';
+import 'I_navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 
 // Normal şartlarda her class'ın bir interface'i olması gerekiyor

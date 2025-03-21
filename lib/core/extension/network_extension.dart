@@ -1,4 +1,4 @@
-import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
+import '../constants/enums/http_request_enum.dart';
 
 extension NetworkTypeExtension on HttpTypes? {
   String get rawValue {

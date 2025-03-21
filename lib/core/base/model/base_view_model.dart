@@ -1,8 +1,9 @@
-import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
-import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
-import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
-import 'package:e_commerce_application/core/init/network/network_manager.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../init/cache/locale_manager.dart';
+import '../../init/navigation/navigation_service.dart';
+import '../../init/network/ICoreDio.dart';
+import '../../init/network/network_manager.dart';
 
 abstract class BaseViewModel {
   late BuildContext myContext;

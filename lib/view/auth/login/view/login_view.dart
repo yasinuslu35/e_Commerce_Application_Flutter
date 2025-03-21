@@ -1,4 +1,5 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
+import 'package:e_commerce_application/core/components/button/icon_button.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -20,20 +21,21 @@ class LoginView extends StatelessWidget {
   }
 
   Scaffold buildScaffold(BuildContext context) => Scaffold(
-        body: ListView(
-          children: [
-            Container(
-              padding: context.paddingLow,
-              height: context.height * 0.4,
-              color: context.theme.buttonTheme.colorScheme?.onPrimary,
-              child: buildText(context),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.lowValue),
-              child: Placeholder(),
-            ),
-
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const TextField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(),
+                ),
+              ),
+              IconNormalButton(
+                onPressed: () {},
+                icon: Icons.access_alarm,
+              ),
+            ],
+          ),
         ),
       );
 
@@ -41,9 +43,7 @@ class LoginView extends StatelessWidget {
     return Text(
       "Hello",
       style: context.textTheme.headlineLarge?.copyWith(
-        color: context.theme.primaryColor,
-        fontWeight: FontWeight.w100
-      ),
+          color: context.theme.primaryColor, fontWeight: FontWeight.w100),
     );
   }
 }

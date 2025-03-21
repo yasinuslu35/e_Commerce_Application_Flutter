@@ -1,4 +1,4 @@
-import 'package:e_commerce_application/core/constants/app/app_constants.dart';
+import '../constants/app/app_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 extension StringLocalization on String {

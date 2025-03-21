@@ -1,8 +1,9 @@
-import 'package:e_commerce_application/view/_product/enum/network_route_enum.dart';
-import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
-import 'package:e_commerce_application/view/auth/login/model/login_response_model.dart';
-import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
 import 'package:vexana/vexana.dart';
+
+import '../../../_product/enum/network_route_enum.dart';
+import '../model/login_model.dart';
+import '../model/login_response_model.dart';
+import 'ILoginService.dart';
 
 class LoginService extends ILoginService {
   LoginService(INetworkManager manager) : super(manager);

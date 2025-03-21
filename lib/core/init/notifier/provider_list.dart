@@ -1,5 +1,5 @@
-import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
-import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
+import '../navigation/navigation_service.dart';
+import 'theme_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

@@ -1,5 +1,5 @@
-import 'package:e_commerce_application/core/constants/enums/app_theme_enum.dart';
-import 'package:e_commerce_application/core/init/theme/app_theme_light.dart';
+import '../../constants/enums/app_theme_enum.dart';
+import '../theme/app_theme_light.dart';
 import 'package:flutter/material.dart';
 
 class ThemeNotifier extends ChangeNotifier {

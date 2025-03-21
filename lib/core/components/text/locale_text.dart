@@ -1,4 +1,4 @@
-import 'package:e_commerce_application/core/extension/string_extension.dart';
+import '../../extension/string_extension.dart';
 import 'package:flutter/material.dart';
 
 class LocaleText extends StatelessWidget {

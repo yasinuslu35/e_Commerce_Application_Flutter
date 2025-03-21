@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
-import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
-import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
-import 'package:e_commerce_application/core/init/network/core_dio.dart';
+import '../../constants/enums/locale_keys_enum.dart';
+import '../cache/locale_manager.dart';
+import 'ICoreDio.dart';
+import 'core_dio.dart';
 
 class NetworkManager {
   static NetworkManager? _instance = NetworkManager._init();
