@@ -6,13 +6,13 @@ import '../model/login_response_model.dart';
 import 'ILoginService.dart';
 
 class LoginService extends ILoginService {
-  LoginService(INetworkManager manager) : super(manager);
+  LoginService(super.manager);
 
   @override
   Future<LoginResponseModel?> fetchUserControl(LoginModel model) async {
     final response = await manager.send<LoginResponseModel, LoginResponseModel>(
       NetworkRoutes.LOGIN.rawValue,
-      parseModel: LoginResponseModel(),
+      parseModel: const LoginResponseModel(),
       method: RequestType.POST,
       data: model,
     );

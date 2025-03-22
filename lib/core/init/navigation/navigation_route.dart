@@ -14,7 +14,7 @@ class NavigationRoute {
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
       case NavigationConstants.TEST_VIEW:
-        return normalNavigate(TestsView());
+        return normalNavigate(const TestsView());
 
       default:
         return MaterialPageRoute(

@@ -14,10 +14,11 @@ import 'IResponseModel.dart';
 part './network_core/core_operations.dart';
 
 class CoreDio with DioMixin implements Dio, ICoreDioNullSafety {
+  @override
   final BaseOptions options;
 
   CoreDio(this.options) {
-    this.options = options;
+    options = options;
     interceptors.add(InterceptorsWrapper());
     httpClientAdapter = IOHttpClientAdapter();
   }

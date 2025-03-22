@@ -2,7 +2,7 @@ import 'package:e_commerce_application/core/components/button/title_elevated_but
 import 'package:flutter/material.dart';
 
 class FaceBookButton extends StatelessWidget {
-  const FaceBookButton({Key? key, this.onComplete}) : super(key: key);
+  const FaceBookButton({super.key, this.onComplete});
   final void Function(FaceBookModel? data, {String? errorMessage})? onComplete;
 
   @override

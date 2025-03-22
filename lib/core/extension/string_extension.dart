@@ -5,7 +5,7 @@ extension StringLocalization on String {
   String get locale => this.tr();
 
   String? get isValidEmail =>
-      this.contains(RegExp(ApplicationConstants.EMAIL_REGEX))
+      contains(RegExp(ApplicationConstants.EMAIL_REGEX))
           ? null
           : "Email does not valid";
 }

@@ -54,7 +54,6 @@ class _TestsViewState extends BaseState<TestsView> {
     return IconButton(
       onPressed: () {
         context.setLocale(LanguageService.instance.enLocale);
-        print("TOKEN VALUE: ${LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)}");
       },
       icon: const Icon(Icons.change_history),
     );

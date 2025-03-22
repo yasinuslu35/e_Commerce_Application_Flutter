@@ -10,7 +10,7 @@ class OnBoardViewModel = _OnBoardViewModelBase with _$OnBoardViewModel;
 abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
   @override
   void setContext(BuildContext context) {
-    this.myContext = context;
+    myContext = context;
   }
 
   @override
@@ -24,4 +24,16 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
   }
 
   late List<OnBoardModel> onBoardModel;
+
+  @observable
+  int currentPageIndex = 0;
+
+  @action
+  void onPageChanged(int value) {
+    currentPageIndex = value;
+  }
+
+
+
+
 }
