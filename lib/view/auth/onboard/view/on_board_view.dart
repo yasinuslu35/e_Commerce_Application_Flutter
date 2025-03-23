@@ -1,20 +1,12 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
-import 'package:e_commerce_application/core/components/column/form_column.dart';
-import 'package:e_commerce_application/core/extension/context_extension.dart';
-import 'package:e_commerce_application/view/_product/_widgets/list_view/on_board_indicator.dart';
+import 'package:e_commerce_application/core/components/container/random_color_container.dart';
+import 'package:e_commerce_application/view/_product/_constants/image_path_svg.dart';
 import 'package:e_commerce_application/view/auth/onboard/viewmodel/on_board_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class OnBoardView extends StatefulWidget {
+class OnBoardView extends StatelessWidget {
   const OnBoardView({super.key});
-
-  @override
-  State<OnBoardView> createState() => _OnBoardViewState();
-}
-
-class _OnBoardViewState extends State<OnBoardView> {
-  late OnBoardViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,49 +15,25 @@ class _OnBoardViewState extends State<OnBoardView> {
       onModelReady: (model) {
         model.setContext(context);
         model.init();
-        viewModel = model;
       },
-      onPageBuilder: (BuildContext context, OnBoardViewModel value) => Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              flex: 9,
-              // PageView.builder içinde ayrıştırma işlemi yapılabilir.
-              //Bir ara yaparsın unutma aşağıdaki listView gibi.
-              child: buildPageView(),
-            ),
-            Expanded(
-              flex: 1,
-              child: buildObserverIndicator(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Observer buildObserverIndicator() {
-    return Observer(
-      builder: (context) => OnBoardIndicator(
-        itemCount: viewModel.onBoardModel.length,
-        currentIndex: viewModel.currentPageIndex,
-      ),
-    );
-  }
-
-  PageView buildPageView() {
-    return PageView.builder(
-      onPageChanged: (value) {
-        viewModel.onPageChanged(value);
-      },
-      itemCount: viewModel.onBoardModel.length,
-      itemBuilder: (context, index) {
-        return Container(
-          color: context.randomColor,
-          child: FormColumn(
+      onPageBuilder: (BuildContext context, OnBoardViewModel viewModel) {
+        return Scaffold(
+          body: Column(
             children: [
-              const Placeholder(),
-              Text(viewModel.onBoardModel[index].text),
+              Expanded(
+                flex: 5,
+                child: SvgPicture.asset(
+                  SVGImage.instance.relaxSVG,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: RandomColorContainer(),
+              ),
+              Expanded(
+                flex: 2,
+                child: RandomColorContainer(),
+              ),
             ],
           ),
         );

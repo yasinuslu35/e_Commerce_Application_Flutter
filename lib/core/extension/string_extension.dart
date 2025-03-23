@@ -9,3 +9,8 @@ extension StringLocalization on String {
           ? null
           : "Email does not valid";
 }
+
+extension SVGPATH on String{
+  String get toSVG => "asset/svg/$this.svg";
+
+}

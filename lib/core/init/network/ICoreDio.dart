@@ -1,4 +1,3 @@
-
 import '../../base/model/base_model.dart';
 import '../../constants/enums/http_request_enum.dart';
 import 'IResponseModel.dart';
@@ -16,10 +15,10 @@ abstract class ICoreDio {
 // MARK: Null SAfety
 
 abstract class ICoreDioNullSafety {
-  Future<IResponseModel<R>> send<R, T>(
+  Future<IResponseModel<R>> send<R, T extends BaseModel>(
     String path, {
     required HttpTypes type,
-    required BaseModel<T> parseModel,
+    required T parseModel,
     dynamic data,
     Map<String, Object>? queryParameters,
     void Function(int, int)? onReceiveProgress,
