@@ -5,26 +5,29 @@ import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_mode
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  LoginViewModel? viewModel;
-
-  LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return BaseView<LoginViewModel>(
       viewModel: LoginViewModel(),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
-        viewModel = model;
       },
-      onPageBuilder: (BuildContext context, LoginViewModel value) =>
-          buildScaffold(context),
+      onPageBuilder: (BuildContext context, LoginViewModel viewModel) =>
+          buildScaffold(
+              context: context, viewModel: viewModel, scaffoldKey: scaffoldKey),
     );
   }
 
-  Scaffold buildScaffold(BuildContext context) => Scaffold(
+  Scaffold buildScaffold({
+    required BuildContext context,
+    required LoginViewModel viewModel,
+    required GlobalKey<ScaffoldState> scaffoldKey,
+  }) =>
+      Scaffold(
         key: scaffoldKey,
         body: Center(
           child: Column(
