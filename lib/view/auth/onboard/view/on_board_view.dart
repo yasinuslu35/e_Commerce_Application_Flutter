@@ -29,7 +29,7 @@ class OnBoardView extends StatelessWidget {
                 Expanded(flex: 5, child: buildPageView(viewModel)),
                 Expanded(
                   flex: 2,
-                  child: buildRowFooter(viewModel),
+                  child: buildRowFooter(context,viewModel),
                 ),
               ],
             ),
@@ -51,41 +51,48 @@ class OnBoardView extends StatelessWidget {
     );
   }
 
-  Row buildRowFooter(OnBoardViewModel viewModel) {
+  Row buildRowFooter(BuildContext context,OnBoardViewModel viewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           flex: 2,
-          child: Observer(
-            builder: (context) => OnBoardIndicator(
-              defaultWidth: context.width * 0.015,
-              itemCount: viewModel.onBoardItems.length,
-              currentIndex: viewModel.currentPageIndex,
+          child: buildObserver(viewModel),
+        ),
+        Expanded(
+          child: Center(
+            child: Observer(
+              builder: (context) {
+                return Visibility(
+                  visible: viewModel.isLoading,
+                  child: const CircularProgressIndicator(),
+                );
+              },
             ),
           ),
         ),
-        const Spacer(),
-        FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.keyboard_arrow_right),
-        ),
+        buildFloatingActionButton(context, viewModel),
       ],
     );
   }
 
-  /*
-  ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: context.paddingLow,
-                              child: const CircleAvatar(),
-                            );
-                          },
-                        ),
-   */
+  FloatingActionButton buildFloatingActionButton(BuildContext context, OnBoardViewModel viewModel) {
+    return FloatingActionButton(
+      onPressed: () {
+        viewModel.completeToOnBoard();
+      },
+      child: const Icon(Icons.keyboard_arrow_right),
+    );
+  }
+
+  Observer buildObserver(OnBoardViewModel viewModel) {
+    return Observer(
+      builder: (context) => OnBoardIndicator(
+        itemCount: viewModel.onBoardItems.length,
+        currentIndex: viewModel.currentPageIndex,
+      ),
+    );
+  }
 
   Column buildColumnBody(BuildContext context, OnBoardModel model) {
     return Column(

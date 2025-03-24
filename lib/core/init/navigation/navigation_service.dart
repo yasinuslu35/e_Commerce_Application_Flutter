@@ -21,8 +21,11 @@ class NavigationService implements INavigationService {
 
   @override
   Future<void> navigateToPageClear(
-      {required String path, required Object object}) async {
-    await navigatorKey.currentState
-        ?.pushNamedAndRemoveUntil(path, (Route<dynamic> route) => false, arguments: object);
+      {required String path, Object? object}) async {
+    await navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      path,
+      (Route<dynamic> route) => false,
+      arguments: object,
+    );
   }
 }

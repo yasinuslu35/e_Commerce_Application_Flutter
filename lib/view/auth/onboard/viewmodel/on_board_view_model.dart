@@ -1,4 +1,6 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
+import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
+import 'package:e_commerce_application/core/constants/navigation/navigation_constants.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_path_svg.dart';
 import 'package:e_commerce_application/view/auth/onboard/model/on_board_model.dart';
@@ -45,8 +47,23 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
   @observable
   int currentPageIndex = 0;
 
+  @observable
+  bool isLoading = false;
+
   @action
   void onPageChanged(int value) {
     currentPageIndex = value;
+  }
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
+  }
+
+  Future<void> completeToOnBoard() async {
+    changeLoading();
+    await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, true);
+    changeLoading();
+    navigation.navigateToPageClear(path: NavigationConstants.TEST_VIEW);
   }
 }
