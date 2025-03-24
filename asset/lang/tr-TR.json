@@ -1,3 +1,17 @@
 {
-  "welcome": "Uygulamama hoşgeldiniz."
+  "welcome": "Uygulamama hoşgeldiniz.",
+  "onBoard": {
+    "page 1": {
+      "title": "İyi Hale Getir",
+      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+    },
+    "page 2": {
+      "title": "İyi Hale Getir",
+      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+    },
+    "page 3": {
+      "title": "İyi Hale Getir",
+      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+    }
+  }
 }

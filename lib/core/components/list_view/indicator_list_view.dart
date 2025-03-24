@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 class IndicatorListView extends StatelessWidget {
   final int itemCount;
   final int currentIndex;
+  final double defaultWidth;
 
   // Geriye Widget döndüren bir function oluyor.
   final Widget Function(int index) onListItem;
 
-  const IndicatorListView(
-      {super.key,
-      required this.itemCount,
-      required this.onListItem,
-      required this.currentIndex});
+  const IndicatorListView({
+    super.key,
+    required this.itemCount,
+    required this.onListItem,
+    required this.currentIndex,
+    required this.defaultWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,11 @@ class IndicatorListView extends StatelessWidget {
 
   CircleAvatar buildCircleAvatar(int index, BuildContext context) {
     return CircleAvatar(
-      backgroundColor: currentIndex == index ? Colors.black12 : Colors.blue,
+      backgroundColor: Colors.deepOrange.withValues(
+        alpha: currentIndex == index ? 1 : 0.2,
+      ),
       radius:
-          currentIndex == index ? context.width * 0.03 : context.width * 0.015,
+          currentIndex == index ? defaultWidth * 2 : defaultWidth,
       child: AnimatedOpacity(
         opacity: currentIndex == index ? 1 : 0,
         duration: context.lowDuration,

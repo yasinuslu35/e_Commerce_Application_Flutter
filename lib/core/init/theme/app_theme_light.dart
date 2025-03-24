@@ -16,47 +16,54 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   @override
   ThemeData get theme => ThemeData(
-        colorScheme: _appColorScheme(),
+        colorScheme: _appColorScheme,
         textTheme: textTheme(),
-        floatingActionButtonTheme: ThemeData.light().floatingActionButtonTheme.copyWith(),
+        floatingActionButtonTheme:
+            ThemeData.light().floatingActionButtonTheme.copyWith(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  backgroundColor: colorSchemeLight.green,
+                ),
         tabBarTheme: tabBarTheme(),
         appBarTheme: appBarTheme(),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
 
   AppBarTheme appBarTheme() {
-    return AppBarTheme(
-        color: colorSchemeLight.brown
-      );
+    return AppBarTheme(color: colorSchemeLight.brown);
   }
 
   TabBarTheme tabBarTheme() {
     return TabBarTheme(
-        unselectedLabelStyle: textThemeLight.headlineMedium
-            .copyWith(color: colorSchemeLight.red),
+      unselectedLabelStyle:
+          textThemeLight.headlineMedium.copyWith(color: colorSchemeLight.red),
       labelPadding: paddingInsets.lowPaddingAll,
-      );
+    );
   }
 
   TextTheme textTheme() {
     return TextTheme(
-        headlineLarge: textThemeLight.headlineLarge,
-        headlineMedium: textThemeLight.headlineMedium,
-        headlineSmall: textThemeLight.headlineSmall,
-      );
-  }
-
-  ColorScheme _appColorScheme() {
-    return ColorScheme(
-      brightness: Brightness.light,
-      primary: colorSchemeLight.black,
-      onPrimary: Colors.greenAccent,
-      secondary: Colors.green,
-      onSecondary: Colors.black38,
-      error: Colors.red.shade900,
-      onError: Colors.red,
-      surface: Colors.blue,
-      onSurface: Colors.white30,
+      headlineLarge: textThemeLight.headlineLarge,
+      headlineMedium: textThemeLight.headlineMedium,
+      headlineSmall: textThemeLight.headlineSmall,
     );
   }
+
+  ColorScheme get _appColorScheme => ColorScheme(
+        primary: colorSchemeLight.blue,
+        // Mavi ton - Ana renk
+        onPrimary: Colors.white,
+        // Primary üzerinde yazı/ikonlar
+        secondary: colorSchemeLight.green,
+        // Yeşil - Vurgu rengi
+        onSecondary: Colors.black,
+        error: colorSchemeLight.red,
+        // Kırmızı - Hata
+        onError: Colors.white,
+        surface: Colors.white,
+        // Kart/dialog arka plan
+        onSurface: Colors.black26,
+        brightness: Brightness.light,
+      );
 }
