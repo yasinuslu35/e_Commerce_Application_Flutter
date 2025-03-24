@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/view/auth/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../view/auth/test/view/test_view.dart';
@@ -15,6 +16,8 @@ class NavigationRoute {
     switch (args.name) {
       case NavigationConstants.TEST_VIEW:
         return normalNavigate(const TestsView());
+      case NavigationConstants.LOGIN_VIEW:
+        return normalNavigate(const LoginView());
 
       default:
         return MaterialPageRoute(

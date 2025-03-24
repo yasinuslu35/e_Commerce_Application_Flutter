@@ -1,24 +1,28 @@
+import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class NormalButton extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
+  final Color? color;
 
   const NormalButton({
     super.key,
     required this.child,
     required this.onPressed,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: const ButtonStyle(
-        elevation: WidgetStatePropertyAll(10),
+      style: ButtonStyle(
+        elevation: const WidgetStatePropertyAll(10),
+        backgroundColor: WidgetStatePropertyAll(color),
       ),
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: context.paddingNormal,
         child: child,
       ),
     );

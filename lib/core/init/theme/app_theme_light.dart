@@ -25,6 +25,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
                   ),
                   backgroundColor: colorSchemeLight.green,
                 ),
+        scaffoldBackgroundColor: colorSchemeLight.scaffoldColorLoginPage,
         tabBarTheme: tabBarTheme(),
         appBarTheme: appBarTheme(),
         fontFamily: ApplicationConstants.FONT_FAMILY,
@@ -60,7 +61,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
         onSecondary: Colors.black,
         error: colorSchemeLight.red,
         // Kırmızı - Hata
-        onError: Colors.white,
+        onError: colorSchemeLight.orange, //xx
         surface: Colors.white,
         // Kart/dialog arka plan
         onSurface: Colors.black26,

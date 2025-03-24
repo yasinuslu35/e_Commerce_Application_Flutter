@@ -64,6 +64,6 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
     changeLoading();
     await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, true);
     changeLoading();
-    navigation.navigateToPageClear(path: NavigationConstants.TEST_VIEW);
+    navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }
 }

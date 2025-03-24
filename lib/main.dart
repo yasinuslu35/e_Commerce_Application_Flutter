@@ -4,7 +4,7 @@ import 'package:e_commerce_application/core/init/navigation/navigation_route.dar
 import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
 import 'package:e_commerce_application/core/init/notifier/provider_list.dart';
 import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
-import 'package:e_commerce_application/view/auth/onboard/view/on_board_view.dart';
+import 'package:e_commerce_application/view/auth/login/view/login_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: Provider.of<ThemeNotifier>(context, listen: false).currentTheme,
-      home: const OnBoardView(),
+      home: const LoginView(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
