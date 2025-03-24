@@ -1,5 +1,5 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
-import 'package:e_commerce_application/core/components/container/random_color_container.dart';
+import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_path_svg.dart';
 import 'package:e_commerce_application/view/auth/onboard/viewmodel/on_board_view_model.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +18,44 @@ class OnBoardView extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, OnBoardViewModel viewModel) {
         return Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                flex: 5,
-                child: SvgPicture.asset(
-                  SVGImage.instance.relaxSVG,
+          body: Padding(
+            padding: context.paddingNormalHorizontal,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: SvgPicture.asset(
+                    SVGImage.instance.relaxSVG,
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 3,
-                child: RandomColorContainer(),
-              ),
-              Expanded(
-                flex: 2,
-                child: RandomColorContainer(),
-              ),
-            ],
+                Column(
+                  children: [
+                    Text(
+                      "Make It Good",
+                      style: context.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "data" * 20,
+                      style: context.textTheme.titleMedium,
+                    ),
+                  ],
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(),
+                      FloatingActionButton(
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

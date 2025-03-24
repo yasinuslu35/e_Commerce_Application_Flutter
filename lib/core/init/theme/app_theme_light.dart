@@ -1,6 +1,7 @@
+import 'package:e_commerce_application/core/init/theme/light/light_tema_interface.dart';
+
 import '../../constants/app/app_constants.dart';
 import 'app_theme.dart';
-import 'light_theme_interface.dart';
 import 'package:flutter/material.dart';
 
 class AppThemeLight extends AppTheme with ILightTheme {
@@ -15,36 +16,47 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   @override
   ThemeData get theme => ThemeData(
-        //colorScheme: _appColorScheme(),
-        textTheme: TextTheme(
-          headlineLarge: textThemeLight.headlineLarge,
-          headlineMedium: textThemeLight.headlineMedium,
-          headlineSmall: textThemeLight.headlineSmall,
-        ),
+        colorScheme: _appColorScheme(),
+        textTheme: textTheme(),
         floatingActionButtonTheme: ThemeData.light().floatingActionButtonTheme.copyWith(),
-        tabBarTheme: TabBarTheme(
-          unselectedLabelStyle: textThemeLight.headlineMedium
-              .copyWith(color: colorSchemeLight.gray),
-        ),
-        appBarTheme: AppBarTheme(
-          color: colorSchemeLight.red
-        ),
+        tabBarTheme: tabBarTheme(),
+        appBarTheme: appBarTheme(),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
 
-  /*
+  AppBarTheme appBarTheme() {
+    return AppBarTheme(
+        color: colorSchemeLight.brown
+      );
+  }
+
+  TabBarTheme tabBarTheme() {
+    return TabBarTheme(
+        unselectedLabelStyle: textThemeLight.headlineMedium
+            .copyWith(color: colorSchemeLight.red),
+      labelPadding: paddingInsets.lowPaddingAll,
+      );
+  }
+
+  TextTheme textTheme() {
+    return TextTheme(
+        headlineLarge: textThemeLight.headlineLarge,
+        headlineMedium: textThemeLight.headlineMedium,
+        headlineSmall: textThemeLight.headlineSmall,
+      );
+  }
+
   ColorScheme _appColorScheme() {
     return ColorScheme(
       brightness: Brightness.light,
       primary: colorSchemeLight.black,
-      onPrimary: Colors.white,
+      onPrimary: Colors.greenAccent,
       secondary: Colors.green,
-      onSecondary: Colors.green.shade200,
-      error: Colors.red.shade500,
+      onSecondary: Colors.black38,
+      error: Colors.red.shade900,
       onError: Colors.red,
       surface: Colors.blue,
       onSurface: Colors.white30,
     );
   }
-   */
 }
