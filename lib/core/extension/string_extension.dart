@@ -14,5 +14,8 @@ extension StringLocalization on String {
 
 extension SVGPATH on String{
   String get toSVG => "asset/svg/$this.svg";
+}
 
+extension PNGPATH on String {
+  String get toPNG => "asset/image/$this.png";
 }

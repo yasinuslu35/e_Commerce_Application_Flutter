@@ -9,10 +9,40 @@ part of 'login_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LoginViewModel on _LoginViewModelBase, Store {
+  late final _$isPasswordVisibleAtom =
+      Atom(name: '_LoginViewModelBase.isPasswordVisible', context: context);
+
+  @override
+  bool get isPasswordVisible {
+    _$isPasswordVisibleAtom.reportRead();
+    return super.isPasswordVisible;
+  }
+
+  @override
+  set isPasswordVisible(bool value) {
+    _$isPasswordVisibleAtom.reportWrite(value, super.isPasswordVisible, () {
+      super.isPasswordVisible = value;
+    });
+  }
+
+  late final _$_LoginViewModelBaseActionController =
+      ActionController(name: '_LoginViewModelBase', context: context);
+
+  @override
+  void changePasswordVisibility() {
+    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
+        name: '_LoginViewModelBase.changePasswordVisibility');
+    try {
+      return super.changePasswordVisibility();
+    } finally {
+      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-
+isPasswordVisible: ${isPasswordVisible}
     ''';
   }
 }

@@ -18,6 +18,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
   ThemeData get theme => ThemeData(
         colorScheme: _appColorScheme,
         textTheme: textTheme(),
+        inputDecorationTheme: inputDecorationTheme(),
         floatingActionButtonTheme:
             ThemeData.light().floatingActionButtonTheme.copyWith(
                   shape: RoundedRectangleBorder(
@@ -30,6 +31,27 @@ class AppThemeLight extends AppTheme with ILightTheme {
         appBarTheme: appBarTheme(),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
+
+  InputDecorationTheme inputDecorationTheme() {
+    return InputDecorationTheme(
+      focusColor: Colors.black12,
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: colorSchemeLight.red,
+        ),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: colorSchemeLight.red,
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: colorSchemeLight.blue,
+        ),
+      ),
+    );
+  }
 
   AppBarTheme appBarTheme() {
     return AppBarTheme(color: colorSchemeLight.brown);
@@ -61,7 +83,8 @@ class AppThemeLight extends AppTheme with ILightTheme {
         onSecondary: Colors.black,
         error: colorSchemeLight.red,
         // Kırmızı - Hata
-        onError: colorSchemeLight.orange, //xx
+        onError: colorSchemeLight.orange,
+        //xx
         surface: Colors.white,
         // Kart/dialog arka plan
         onSurface: Colors.black26,
