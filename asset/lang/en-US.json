@@ -16,11 +16,13 @@
   },
   "login": {
     "tab1": "Login",
-    "tab2": "SignUp",
-    "email": "Email",
+    "tab2": "Sign Up",
+    "email": "Username",
     "password": "Password",
     "forgotText": "Forgot Password",
     "login": "Login",
-    "dontAccount": "Dont have account"
+    "dontAccount": "Don't have a account?",
+    "validUsername": "Username does not valid",
+    "validPassword": "Please enter password"
   }
 }

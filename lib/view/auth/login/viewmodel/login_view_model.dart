@@ -37,6 +37,8 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
         forgotText: LocaleKeys.login_forgotText,
         loginButtonText: LocaleKeys.login_login,
         dontAccount: LocaleKeys.login_dontAccount,
+        validUsername: LocaleKeys.login_validUsername,
+        validPassword: LocaleKeys.login_validPassword,
       ),
     );
     loginService = LoginService(VexanaManager.instance.networkManager);

@@ -6,6 +6,8 @@ class LoginModel {
   final String forgotText;
   final String loginButtonText;
   final String dontAccount;
+  final String? validUsername;
+  final String? validPassword;
 
   LoginModel({
     required this.tab1,
@@ -15,5 +17,7 @@ class LoginModel {
     required this.forgotText,
     required this.loginButtonText,
     required this.dontAccount,
+    this.validUsername,
+    this.validPassword,
   });
 }

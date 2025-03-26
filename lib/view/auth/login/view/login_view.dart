@@ -1,5 +1,6 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
 import 'package:e_commerce_application/core/components/button/title_elevated_button.dart';
+import 'package:e_commerce_application/core/components/text/locale_text.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_constants.dart';
@@ -72,12 +73,12 @@ class LoginView extends StatelessWidget {
           eMailTextFormField(context, viewModel),
           const Spacer(),
           passwordTextFormField(context, viewModel),
-          buildTextForgot(),
+          buildTextForgot(viewModel),
           const Spacer(
             flex: 6,
           ),
           buildTitleLoginButton(context, viewModel),
-          buildWrapChange(),
+          buildWrapChange(viewModel),
           const Spacer(
             flex: 2,
           ),
@@ -86,21 +87,25 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Align buildTextForgot() => const Align(
+  Align buildTextForgot(LoginViewModel viewModel) => Align(
         alignment: Alignment.centerRight,
-        child: Text(
-          "Forgot Password?",
+        child: LocaleText(
+          value: viewModel.loginModelItems.first.forgotText,
         ),
       );
 
-  Wrap buildWrapChange() {
+  Wrap buildWrapChange(LoginViewModel viewModel) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        const Text("Don't have an account?"),
+        LocaleText(
+          value: viewModel.loginModelItems.first.dontAccount,
+        ),
         TextButton(
           onPressed: () {},
-          child: const Text("Sign Up"),
+          child: LocaleText(
+            value: viewModel.loginModelItems.first.tab2,
+          ),
         ),
       ],
     );
@@ -114,7 +119,7 @@ class LoginView extends StatelessWidget {
             : () {
                 viewModel.fetchLoginService();
               },
-        text: "Login",
+        text: viewModel.loginModelItems.first.loginButtonText.locale,
         color: context.colors.onError,
       ),
     );
@@ -126,10 +131,11 @@ class LoginView extends StatelessWidget {
       builder: (context) => TextFormField(
         controller: viewModel.passwordController,
         obscureText: viewModel.isPasswordVisible,
-        validator: (value) =>
-            value!.isNotEmpty ? null : "Please enter password",
+        validator: (value) => value!.isNotEmpty
+            ? null
+            : viewModel.loginModelItems.first.validPassword?.locale,
         decoration: InputDecoration(
-            labelText: "PASSWORD",
+            labelText: viewModel.loginModelItems.first.password.locale,
             labelStyle: context.textTheme.titleSmall,
             icon: buildIcon(context, Icons.lock),
             suffixIcon: buildSuffixIcon(viewModel)),
@@ -154,10 +160,11 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewModel) {
     return TextFormField(
       controller: viewModel.emailController,
-      validator: (value) =>
-          value!.isValidUsername ? null : "Username does not valid",
+      validator: (value) => value!.isValidUsername
+          ? null
+          : viewModel.loginModelItems.first.validUsername?.locale,
       decoration: InputDecoration(
-        labelText: "USERNAME",
+        labelText: viewModel.loginModelItems.first.email.locale,
         labelStyle: context.textTheme.titleSmall,
         icon: buildIcon(context, Icons.email),
       ),
@@ -177,7 +184,8 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Container buildContainerTabBar(BuildContext context, LoginViewModel viewModel) {
+  Container buildContainerTabBar(
+      BuildContext context, LoginViewModel viewModel) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,

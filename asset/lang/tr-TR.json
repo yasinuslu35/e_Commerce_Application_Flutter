@@ -21,6 +21,8 @@
     "password": "Şifre",
     "forgotText": "Şifrenizi mi unuttunuz.",
     "login": "Giriş Yap",
-    "dontAccount": "Hesabınız mı yok?"
+    "dontAccount": "Hesabınız mı yok?",
+    "validUsername": "Kullanıcı adı geçersiz",
+    "validPassword": "Lütfen şifrenizi giriniz"
   }
 }
