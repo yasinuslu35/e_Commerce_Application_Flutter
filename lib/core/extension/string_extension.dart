@@ -14,6 +14,9 @@ extension StringLocalization on String {
 
   bool get isValidUsername =>
       RegExp(ApplicationConstants.USERNAME_REGEX).hasMatch(this);
+
+  bool get isValidPassword =>
+      RegExp(ApplicationConstants.PASSWORD_REGEX).hasMatch(this);
 }
 
 extension SVGPATH on String {

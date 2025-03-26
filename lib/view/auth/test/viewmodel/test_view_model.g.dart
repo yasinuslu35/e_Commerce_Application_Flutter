@@ -48,14 +48,6 @@ mixin _$TestViewModel on _TestViewModelBase, Store {
     });
   }
 
-  late final _$getSampleRequestAsyncAction =
-      AsyncAction('_TestViewModelBase.getSampleRequest', context: context);
-
-  @override
-  Future<void> getSampleRequest() {
-    return _$getSampleRequestAsyncAction.run(() => super.getSampleRequest());
-  }
-
   late final _$_TestViewModelBaseActionController =
       ActionController(name: '_TestViewModelBase', context: context);
 

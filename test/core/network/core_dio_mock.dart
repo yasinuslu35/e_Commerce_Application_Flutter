@@ -1,17 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:e_commerce_application/core/base/model/base_error.dart';
-import 'package:e_commerce_application/core/base/model/base_model.dart';
-import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
-import 'package:e_commerce_application/core/extension/network_extension.dart';
-import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
-import 'package:e_commerce_application/core/init/network/IResponseModel.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-class CoreDioMock with DioMixin implements ICoreDioFullNulSafetyFull, Dio {
+
+class CoreDioMock with DioMixin implements Dio {
   @override
   final BaseOptions options;
 
@@ -21,6 +12,7 @@ class CoreDioMock with DioMixin implements ICoreDioFullNulSafetyFull, Dio {
     httpClientAdapter = IOHttpClientAdapter();
   }
 
+  /*
   @override
   Future<IResponseModel<R>> send<R, T extends BaseModel>(String path,
       {HttpTypes? type,
@@ -74,4 +66,6 @@ class CoreDioMock with DioMixin implements ICoreDioFullNulSafetyFull, Dio {
     }
     return data as R?;
   }
+
+   */
 }

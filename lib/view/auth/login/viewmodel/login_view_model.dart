@@ -1,5 +1,6 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
+import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
 import 'package:e_commerce_application/core/init/network/vexana_manager.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
@@ -62,6 +63,24 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
     isLoading = !isLoading;
   }
 
+  String? usernameValidation(String? value) {
+    if(value!.length < 3) {
+      return LocaleKeys.login_validUsername.locale;
+    }
+    else {
+      return null;
+    }
+  }
+
+  String? passwordValidation(String? value) {
+    if(value!.isValidPassword) {
+      return null;
+    }
+    else {
+      return LocaleKeys.login_validPassword.locale;
+    }
+  }
+
   @action
   Future<void> fetchLoginService() async {
     isLoadingChange();
@@ -73,8 +92,6 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
         ),
       );
       if (response != null) {
-        print("response token = ${response.token}");
-        print("response expires in = ${response.expiresIn}");
         if (response.token?.isEmpty ?? true) return;
         if (scaffoldState.currentContext != null) {
           ScaffoldMessenger.of(scaffoldState.currentContext!).showSnackBar(

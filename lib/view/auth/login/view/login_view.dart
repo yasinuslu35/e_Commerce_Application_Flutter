@@ -79,7 +79,7 @@ class LoginView extends StatelessWidget {
   Form buildForm(LoginViewModel viewModel, BuildContext context) {
     return Form(
       key: viewModel.formState,
-      autovalidateMode: AutovalidateMode.always,
+      autovalidateMode: AutovalidateMode.onUnfocus,
       child: Column(
         children: [
           const Spacer(
@@ -151,7 +151,7 @@ class LoginView extends StatelessWidget {
         controller: viewModel.passwordController,
         obscureText: viewModel.isPasswordVisible,
         validator: (value) =>
-            value!.isNotEmpty ? null : model.validPassword?.locale,
+            viewModel.passwordValidation(value),
         suffixIcon: buildSuffixIcon(viewModel),
       ),
     );
@@ -177,7 +177,7 @@ class LoginView extends StatelessWidget {
       icon: Icons.email,
       controller: viewModel.emailController,
       validator: (value) =>
-          value!.isNotEmpty ? null : model.validUsername?.locale,
+          viewModel.usernameValidation(value),
     );
   }
 

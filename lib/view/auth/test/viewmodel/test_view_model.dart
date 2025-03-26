@@ -1,8 +1,6 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/constants/enums/app_theme_enum.dart';
-import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
 import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
-import 'package:e_commerce_application/view/auth/test/model/test_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +38,7 @@ abstract class _TestViewModelBase extends BaseViewModel with Store {
         AppThemes.DARK);
   }
 
+  /*
   @action
   Future<void> getSampleRequest() async {
     isLoading = true;
@@ -50,6 +49,7 @@ abstract class _TestViewModelBase extends BaseViewModel with Store {
     }
     isLoading = false;
   }
+   */
 }
 
 

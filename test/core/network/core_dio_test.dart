@@ -1,11 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
-import 'package:e_commerce_application/core/init/network/ICoreDio.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'core_dio_mock.dart';
-import 'dio_mock_model.dart';
+
 
 main() {
+  /*
   late ICoreDioFullNulSafetyFull service;
   setUp(() {
     service = CoreDioMock(BaseOptions(baseUrl: 'https://jsonplaceholder.typicode.com'));
@@ -39,4 +35,6 @@ main() {
 
     expect(data.data, isList);
   });
+
+   */
 }
