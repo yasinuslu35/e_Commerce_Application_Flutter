@@ -1,9 +1,13 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
 import 'package:e_commerce_application/core/components/button/title_elevated_button.dart';
 import 'package:e_commerce_application/core/components/text/locale_text.dart';
+import 'package:e_commerce_application/core/components/textFormField/base_text_form_field.dart';
+import 'package:e_commerce_application/core/components/textFormField/password_text_form_field.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_constants.dart';
+import 'package:e_commerce_application/view/_product/_widgets/loginTabBar/login_tabbar_business.dart';
+import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
 import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,20 +26,31 @@ class LoginView extends StatelessWidget {
       onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
         return DefaultTabController(
           length: 2,
-          child: buildScaffold(context, viewModel),
+          child: buildScaffold(
+              context, viewModel, viewModel.loginModelItems.first),
         );
       },
     );
   }
 
-  Scaffold buildScaffold(BuildContext context, LoginViewModel viewModel) {
+  Scaffold buildScaffold(
+      BuildContext context, LoginViewModel viewModel, LoginModel model) {
     return Scaffold(
       key: viewModel.scaffoldState,
       body: SafeArea(
         child: Column(
           children: [
             buildAnimatedContainer(context),
-            buildContainerTabBar(context, viewModel),
+            LoginTabbarBusiness(
+              tabs: [
+                Tab(
+                  text: "   ${model.tab1.locale}   ",
+                ),
+                Tab(
+                  text: " ${model.tab2.locale} ",
+                ),
+              ],
+            ),
             Expanded(
               flex: 6,
               child: Padding(
@@ -70,15 +85,18 @@ class LoginView extends StatelessWidget {
           const Spacer(
             flex: 6,
           ),
-          eMailTextFormField(context, viewModel),
+          eMailTextFormField(
+              context, viewModel, viewModel.loginModelItems.first),
           const Spacer(),
-          passwordTextFormField(context, viewModel),
-          buildTextForgot(viewModel),
+          passwordTextFormField(
+              context, viewModel, viewModel.loginModelItems.first),
+          buildTextForgot(viewModel.loginModelItems.first),
           const Spacer(
             flex: 6,
           ),
-          buildTitleLoginButton(context, viewModel),
-          buildWrapChange(viewModel),
+          buildTitleLoginButton(
+              context, viewModel, viewModel.loginModelItems.first),
+          buildWrapChange(viewModel.loginModelItems.first),
           const Spacer(
             flex: 2,
           ),
@@ -87,31 +105,32 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Align buildTextForgot(LoginViewModel viewModel) => Align(
+  Align buildTextForgot(LoginModel model) => Align(
         alignment: Alignment.centerRight,
         child: LocaleText(
-          value: viewModel.loginModelItems.first.forgotText,
+          value: model.forgotText,
         ),
       );
 
-  Wrap buildWrapChange(LoginViewModel viewModel) {
+  Wrap buildWrapChange(LoginModel model) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         LocaleText(
-          value: viewModel.loginModelItems.first.dontAccount,
+          value: model.dontAccount,
         ),
         TextButton(
           onPressed: () {},
           child: LocaleText(
-            value: viewModel.loginModelItems.first.tab2,
+            value: model.tab2,
           ),
         ),
       ],
     );
   }
 
-  Widget buildTitleLoginButton(BuildContext context, LoginViewModel viewModel) {
+  Widget buildTitleLoginButton(
+      BuildContext context, LoginViewModel viewModel, LoginModel model) {
     return Observer(
       builder: (context) => TitleElevatedButton(
         onPressed: viewModel.isLoading
@@ -119,26 +138,21 @@ class LoginView extends StatelessWidget {
             : () {
                 viewModel.fetchLoginService();
               },
-        text: viewModel.loginModelItems.first.loginButtonText.locale,
+        text: model.loginButtonText.locale,
         color: context.colors.onError,
       ),
     );
   }
 
   Observer passwordTextFormField(
-      BuildContext context, LoginViewModel viewModel) {
+      BuildContext context, LoginViewModel viewModel, LoginModel model) {
     return Observer(
-      builder: (context) => TextFormField(
+      builder: (context) => PasswordTextFormField(
         controller: viewModel.passwordController,
         obscureText: viewModel.isPasswordVisible,
-        validator: (value) => value!.isNotEmpty
-            ? null
-            : viewModel.loginModelItems.first.validPassword?.locale,
-        decoration: InputDecoration(
-            labelText: viewModel.loginModelItems.first.password.locale,
-            labelStyle: context.textTheme.titleSmall,
-            icon: buildIcon(context, Icons.lock),
-            suffixIcon: buildSuffixIcon(viewModel)),
+        validator: (value) =>
+            value!.isNotEmpty ? null : model.validPassword?.locale,
+        suffixIcon: buildSuffixIcon(viewModel),
       ),
     );
   }
@@ -156,18 +170,14 @@ class LoginView extends StatelessWidget {
         ),
       );
 
-  TextFormField eMailTextFormField(
-      BuildContext context, LoginViewModel viewModel) {
-    return TextFormField(
+  Widget eMailTextFormField(
+      BuildContext context, LoginViewModel viewModel, LoginModel model) {
+    return BaseTextFormField(
+      labelText: model.email.locale,
+      icon: Icons.email,
       controller: viewModel.emailController,
-      validator: (value) => value!.isValidUsername
-          ? null
-          : viewModel.loginModelItems.first.validUsername?.locale,
-      decoration: InputDecoration(
-        labelText: viewModel.loginModelItems.first.email.locale,
-        labelStyle: context.textTheme.titleSmall,
-        icon: buildIcon(context, Icons.email),
-      ),
+      validator: (value) =>
+          value!.isNotEmpty ? null : model.validUsername?.locale,
     );
   }
 
@@ -181,44 +191,6 @@ class LoginView extends StatelessWidget {
         size: context.width * 0.07,
         color: context.colors.onError,
       ),
-    );
-  }
-
-  Container buildContainerTabBar(
-      BuildContext context, LoginViewModel viewModel) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(50),
-        ),
-      ),
-      child: Padding(
-        padding: context.paddingMediumHorizontal.add(
-          const EdgeInsets.only(bottom: 5),
-        ),
-        child: buildTabBar(context, viewModel),
-      ),
-    );
-  }
-
-  TabBar buildTabBar(BuildContext context, LoginViewModel viewModel) {
-    return TabBar(
-      labelStyle: context.textTheme.headlineSmall,
-      labelColor: Colors.black,
-      unselectedLabelStyle: context.textTheme.headlineSmall,
-      unselectedLabelColor: context.colors.onSurface,
-      indicatorColor: context.colors.onError,
-      indicatorWeight: 5,
-      indicatorSize: TabBarIndicatorSize.label,
-      tabs: [
-        Tab(
-          text: "   ${viewModel.loginModelItems.first.tab1.locale}   ",
-        ),
-        Tab(
-          text: " ${viewModel.loginModelItems.first.tab2.locale} ",
-        ),
-      ],
     );
   }
 }
