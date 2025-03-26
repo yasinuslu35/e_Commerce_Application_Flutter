@@ -4,7 +4,7 @@ import 'normal_button.dart';
 import 'package:flutter/material.dart';
 
 class TitleElevatedButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String text;
   final Color? color;
 

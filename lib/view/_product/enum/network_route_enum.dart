@@ -4,7 +4,7 @@ extension NetwrokRoutesString on NetworkRoutes {
   String get rawValue {
     switch (this) {
       case NetworkRoutes.LOGIN:
-        return 'login';
+        return 'auth/login';
       case NetworkRoutes.BUILD_HOME:
         return 'house';
       case NetworkRoutes.FRIENDS:

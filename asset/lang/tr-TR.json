@@ -13,5 +13,14 @@
       "title": "İyi Hale Getir",
       "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
     }
+  },
+  "login": {
+    "tab1": "Giriş Yap",
+    "tab2": "Kayıt Ol",
+    "email": "Kullanıcı adı",
+    "password": "Şifre",
+    "forgotText": "Şifrenizi mi unuttunuz.",
+    "login": "Giriş Yap",
+    "dontAccount": "Hesabınız mı yok?"
   }
 }

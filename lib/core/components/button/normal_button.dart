@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class NormalButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
 
   const NormalButton({

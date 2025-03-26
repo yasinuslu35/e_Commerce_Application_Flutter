@@ -14,5 +14,13 @@ abstract class  LocaleKeys {
   static const onBoard_page3_description = 'onBoard.page3.description';
   static const onBoard_page3 = 'onBoard.page3';
   static const onBoard = 'onBoard';
+  static const login_tab1 = 'login.tab1';
+  static const login_tab2 = 'login.tab2';
+  static const login_email = 'login.email';
+  static const login_password = 'login.password';
+  static const login_forgotText = 'login.forgotText';
+  static const login_login = 'login.login';
+  static const login_dontAccount = 'login.dontAccount';
+  static const login = 'login';
 
 }

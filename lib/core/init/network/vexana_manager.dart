@@ -13,8 +13,8 @@ class VexanaManager {
     return _instace!;
   }
 
-  static const String _iosBaseUrl = 'http://localhost:3000/';
-  static const String _androidBaseUrl = 'http://10.0.2.2:3000/';
+  static const String _iosBaseUrl = 'http://localhost:3000/api/';
+  static const String _androidBaseUrl = 'http://10.0.2.2:8080/api/';
 
   INetworkManager networkManager = NetworkManager<EmptyModel>(
     isEnableLogger: true,

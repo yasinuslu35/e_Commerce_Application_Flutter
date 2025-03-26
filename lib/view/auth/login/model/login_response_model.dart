@@ -5,9 +5,10 @@ part 'login_response_model.g.dart';
 
 @JsonSerializable()
 class LoginResponseModel extends INetworkModel<LoginResponseModel> {
+  const LoginResponseModel({this.token, this.expiresIn});
 
-  const LoginResponseModel({this.token});
   final String? token;
+  final double? expiresIn;
 
   @override
   LoginResponseModel fromJson(Map<String, Object?> json) {

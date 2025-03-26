@@ -1,6 +1,7 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
 import 'package:e_commerce_application/core/components/button/title_elevated_button.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
+import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_constants.dart';
 import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class LoginView extends StatelessWidget {
         child: Column(
           children: [
             buildAnimatedContainer(context),
-            buildContainerTabBar(context),
+            buildContainerTabBar(context, viewModel),
             Expanded(
               flex: 6,
               child: Padding(
@@ -62,19 +63,20 @@ class LoginView extends StatelessWidget {
   Form buildForm(LoginViewModel viewModel, BuildContext context) {
     return Form(
       key: viewModel.formState,
+      autovalidateMode: AutovalidateMode.always,
       child: Column(
         children: [
           const Spacer(
             flex: 6,
           ),
-          eMailTextFormField(context),
+          eMailTextFormField(context, viewModel),
           const Spacer(),
           passwordTextFormField(context, viewModel),
           buildTextForgot(),
           const Spacer(
             flex: 6,
           ),
-          buildTitleLoginButton(context),
+          buildTitleLoginButton(context, viewModel),
           buildWrapChange(),
           const Spacer(
             flex: 2,
@@ -104,11 +106,17 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  TitleElevatedButton buildTitleLoginButton(BuildContext context) {
-    return TitleElevatedButton(
-      onPressed: () {},
-      text: "Login",
-      color: context.colors.onError,
+  Widget buildTitleLoginButton(BuildContext context, LoginViewModel viewModel) {
+    return Observer(
+      builder: (context) => TitleElevatedButton(
+        onPressed: viewModel.isLoading
+            ? null
+            : () {
+                viewModel.fetchLoginService();
+              },
+        text: "Login",
+        color: context.colors.onError,
+      ),
     );
   }
 
@@ -116,11 +124,13 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewModel) {
     return Observer(
       builder: (context) => TextFormField(
+        controller: viewModel.passwordController,
         obscureText: viewModel.isPasswordVisible,
         validator: (value) =>
             value!.isNotEmpty ? null : "Please enter password",
         decoration: InputDecoration(
             labelText: "PASSWORD",
+            labelStyle: context.textTheme.titleSmall,
             icon: buildIcon(context, Icons.lock),
             suffixIcon: buildSuffixIcon(viewModel)),
       ),
@@ -140,10 +150,14 @@ class LoginView extends StatelessWidget {
         ),
       );
 
-  TextFormField eMailTextFormField(BuildContext context) {
+  TextFormField eMailTextFormField(
+      BuildContext context, LoginViewModel viewModel) {
     return TextFormField(
+      controller: viewModel.emailController,
+      validator: (value) =>
+          value!.isValidUsername ? null : "Username does not valid",
       decoration: InputDecoration(
-        labelText: "EMAIL",
+        labelText: "USERNAME",
         labelStyle: context.textTheme.titleSmall,
         icon: buildIcon(context, Icons.email),
       ),
@@ -163,7 +177,7 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Container buildContainerTabBar(BuildContext context) {
+  Container buildContainerTabBar(BuildContext context, LoginViewModel viewModel) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -175,12 +189,12 @@ class LoginView extends StatelessWidget {
         padding: context.paddingMediumHorizontal.add(
           const EdgeInsets.only(bottom: 5),
         ),
-        child: buildTabBar(context),
+        child: buildTabBar(context, viewModel),
       ),
     );
   }
 
-  TabBar buildTabBar(BuildContext context) {
+  TabBar buildTabBar(BuildContext context, LoginViewModel viewModel) {
     return TabBar(
       labelStyle: context.textTheme.headlineSmall,
       labelColor: Colors.black,
@@ -189,12 +203,12 @@ class LoginView extends StatelessWidget {
       indicatorColor: context.colors.onError,
       indicatorWeight: 5,
       indicatorSize: TabBarIndicatorSize.label,
-      tabs: const [
+      tabs: [
         Tab(
-          text: "   Login   ",
+          text: "   ${viewModel.loginModelItems.first.tab1.locale}   ",
         ),
         Tab(
-          text: " Sign Up ",
+          text: " ${viewModel.loginModelItems.first.tab2.locale} ",
         ),
       ],
     );
