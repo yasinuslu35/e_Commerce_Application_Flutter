@@ -23,6 +23,10 @@ class TextThemeLight {
     fontSize: 24,
     fontWeight: FontWeight.w400,
   );
+  final TextStyle headlineExtraSmall = const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
   final TextStyle overline = const TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w400,

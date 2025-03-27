@@ -1,4 +1,5 @@
 import 'package:e_commerce_application/core/init/theme/light/light_tema_interface.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants/app/app_constants.dart';
 import 'app_theme.dart';
@@ -27,7 +28,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
                   backgroundColor: colorSchemeLight.green,
                 ),
         scaffoldBackgroundColor: colorSchemeLight.scaffoldColorLoginPage,
-        tabBarTheme: tabBarTheme(),
+        tabBarTheme: tabBarTheme,
         appBarTheme: appBarTheme(),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
@@ -55,27 +56,34 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   AppBarTheme appBarTheme() {
     return ThemeData.light().appBarTheme.copyWith(
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
           iconTheme: const IconThemeData(
-            color: Colors.black,
+            color: Colors.black87,
             size: 20,
           ),
         );
   }
 
-  TabBarTheme tabBarTheme() {
+  TabBarTheme get tabBarTheme {
     return TabBarTheme(
-      unselectedLabelStyle:
-          textThemeLight.headlineMedium.copyWith(color: colorSchemeLight.red),
+      // unselectedLabelStyle:
+      //     textThemeLight.headlineExtraSmall.copyWith(color: colorSchemeLight.red),
       labelPadding: paddingInsets.lowPaddingAll,
+      dividerColor: Colors.transparent,
+      labelStyle: textThemeLight.headlineSmall,
+      labelColor: _appColorScheme.onSecondary,
+      unselectedLabelColor: _appColorScheme.onSecondary.withValues(alpha: 0.2),
+      indicatorColor: colorSchemeLight.blue,
+      indicatorSize: TabBarIndicatorSize.label,
     );
   }
 
   TextTheme textTheme() {
-    return TextTheme(
-      headlineLarge: textThemeLight.headlineLarge,
-      headlineMedium: textThemeLight.headlineMedium,
-      headlineSmall: textThemeLight.headlineSmall,
-    );
+    return ThemeData.light().textTheme.copyWith(
+          headlineLarge: textThemeLight.headlineLarge,
+          headlineMedium: textThemeLight.headlineMedium,
+          headlineSmall: textThemeLight.headlineSmall,
+        );
   }
 
   ColorScheme get _appColorScheme => ColorScheme(
@@ -90,7 +98,8 @@ class AppThemeLight extends AppTheme with ILightTheme {
         // Kırmızı - Hata
         onError: colorSchemeLight.orange,
         //xx
-        surface: Colors.white,
+        surface: Colors.blue,
+        //xx
         // Kart/dialog arka plan
         onSurface: Colors.black26,
         brightness: Brightness.light,
