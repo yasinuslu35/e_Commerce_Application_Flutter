@@ -1,5 +1,6 @@
 abstract class BaseModel<T> {
-  Map<String,dynamic> toJson();
+  Map<String, Object?>? toJson();
 
-  T fromJson(Map<String,dynamic> json);
+  T fromJson(Map<String, Object> json);
+  const BaseModel();
 }

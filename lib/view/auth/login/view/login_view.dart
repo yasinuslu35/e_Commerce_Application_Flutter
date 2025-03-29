@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginView extends StatelessWidget {
+
   const LoginView({super.key});
 
   @override
@@ -150,8 +151,7 @@ class LoginView extends StatelessWidget {
       builder: (context) => PasswordTextFormField(
         controller: viewModel.passwordController,
         obscureText: viewModel.isPasswordVisible,
-        validator: (value) =>
-            viewModel.passwordValidation(value),
+        validator: (value) => viewModel.passwordValidation(value),
         suffixIcon: buildSuffixIcon(viewModel),
       ),
     );
@@ -176,8 +176,7 @@ class LoginView extends StatelessWidget {
       labelText: model.email.locale,
       icon: Icons.email,
       controller: viewModel.emailController,
-      validator: (value) =>
-          viewModel.usernameValidation(value),
+      validator: (value) => viewModel.usernameValidation(value),
     );
   }
 

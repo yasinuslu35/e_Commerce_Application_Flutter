@@ -15,7 +15,7 @@ class BuildFeedService extends IBuildFeedService with ServiceHelper {
       parseModel: const BrandResponseModel(),
       method: RequestType.GET,
     );
-    showMessage(scaffoldyKey, response.error);
+    //showMessage(scaffoldyKey, response.error);
     return response.data?.data;
   }
 }

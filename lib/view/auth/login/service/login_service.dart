@@ -1,26 +1,36 @@
+import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
+import 'package:e_commerce_application/view/_product/enum/network_route_enum.dart';
+import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
+import 'package:e_commerce_application/view/auth/login/model/login_response_model.dart';
+import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../_product/enum/network_route_enum.dart';
-import '../model/login_request_model.dart';
-import '../model/login_response_model.dart';
-import 'ILoginService.dart';
-
-class LoginService extends ILoginService {
-  LoginService(super.manager);
+class LoginService extends ILoginService with ServiceHelper {
+  LoginService(super.manager,super.scaffoldKey);
 
   @override
   Future<LoginResponseModel?> fetchUserControl(LoginRequestModel model) async {
-    final response = await manager.send<LoginResponseModel, LoginResponseModel>(
+    final response = await manager.send<BaseEntityModel, BaseEntityModel>(
       NetworkRoutes.LOGIN.rawValue,
-      parseModel: const LoginResponseModel(),
+      urlSuffix: "login",
+      parseModel: const BaseEntityModel(),
       method: RequestType.POST,
       data: model,
-    );
+      options: Options(
+        validateStatus: (status) {
+          return status! < 500; // 500'den küçük olan tüm status kodları hata olarak görülmez
+        },
+      ),
 
-    if (response.data is LoginResponseModel) {
-      return response.data;
+    );
+    print("response = ${response.data?.data}");
+    if (response.data?.data is LoginResponseModel) {
+      print("response.data = ${response.data}");
+      showMessage(scaffoldKey, response.error);
+      return response.data?.data;
     } else {
-      return null;
+      showMessage(scaffoldKey, response.error);
+      return response.data?.data;
     }
   }
 }

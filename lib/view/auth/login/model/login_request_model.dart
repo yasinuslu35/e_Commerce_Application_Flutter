@@ -5,10 +5,13 @@ part 'login_request_model.g.dart';
 
 @JsonSerializable()
 class LoginRequestModel extends INetworkModel<LoginRequestModel> {
-
-  const LoginRequestModel({this.username, this.password});
   final String? username;
   final String? password;
+
+  LoginRequestModel({
+    this.username,
+    this.password,
+  });
 
   @override
   LoginRequestModel fromJson(Map<String, Object?> json) {

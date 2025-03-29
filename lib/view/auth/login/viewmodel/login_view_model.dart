@@ -2,7 +2,6 @@ import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
-import 'package:e_commerce_application/core/init/network/vexana_manager.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
 import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
@@ -29,6 +28,10 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
 
   @override
   void init() {
+    loginService = LoginService(
+      vexanaManager!.networkManager,
+      scaffoldState,
+    );
     loginModelItems.add(
       LoginModel(
         tab1: LocaleKeys.login_tab1,
@@ -42,7 +45,7 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
         validPassword: LocaleKeys.login_validPassword,
       ),
     );
-    loginService = LoginService(VexanaManager.instance.networkManager);
+
     emailController = TextEditingController();
     passwordController = TextEditingController();
   }
@@ -64,19 +67,17 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
   }
 
   String? usernameValidation(String? value) {
-    if(value!.length < 3) {
+    if (value!.length < 3) {
       return LocaleKeys.login_validUsername.locale;
-    }
-    else {
+    } else {
       return null;
     }
   }
 
   String? passwordValidation(String? value) {
-    if(value!.isValidPassword) {
+    if (value!.isValidPassword) {
       return null;
-    }
-    else {
+    } else {
       return LocaleKeys.login_validPassword.locale;
     }
   }
@@ -102,6 +103,8 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
         }
         await localeManager.setStringValue(
             PreferencesKeys.TOKEN, response.token!);
+      } else {
+        print("response = $response");
       }
     }
     isLoadingChange();

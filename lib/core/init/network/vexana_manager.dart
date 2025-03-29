@@ -20,6 +20,8 @@ class VexanaManager {
     isEnableLogger: true,
     options: BaseOptions(
       baseUrl: Platform.isAndroid ? _androidBaseUrl : _iosBaseUrl,
+
     ),
   );
+
 }
