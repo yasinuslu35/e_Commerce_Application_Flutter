@@ -6,7 +6,7 @@ extension NetwrokRoutesString on NetworkRoutes {
       case NetworkRoutes.LOGIN:
         return 'auth/login';
       case NetworkRoutes.BUILD_HOME:
-        return 'house';
+        return 'brands/';
       case NetworkRoutes.FRIENDS:
         return 'friends';
 

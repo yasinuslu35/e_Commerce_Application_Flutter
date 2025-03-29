@@ -30,6 +30,10 @@ class AppThemeLight extends AppTheme with ILightTheme {
         scaffoldBackgroundColor: colorSchemeLight.scaffoldColorLoginPage,
         tabBarTheme: tabBarTheme,
         appBarTheme: appBarTheme(),
+        cardTheme: ThemeData.light().cardTheme.copyWith(
+          color: Colors.white,
+
+        ),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
 
@@ -56,7 +60,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   AppBarTheme appBarTheme() {
     return ThemeData.light().appBarTheme.copyWith(
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           iconTheme: const IconThemeData(
             color: Colors.black87,
             size: 20,
@@ -80,9 +84,14 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   TextTheme textTheme() {
     return ThemeData.light().textTheme.copyWith(
+
           headlineLarge: textThemeLight.headlineLarge,
-          headlineMedium: textThemeLight.headlineMedium,
-          headlineSmall: textThemeLight.headlineSmall,
+          headlineMedium: textThemeLight.headlineMedium.copyWith(
+            color: Colors.black,
+          ),
+          headlineSmall: textThemeLight.headlineSmall.copyWith(
+            color: Colors.black,
+          ),
         );
   }
 
