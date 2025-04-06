@@ -29,7 +29,7 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
   @override
   void init() {
     loginService = LoginService(
-      vexanaManager!.networkManager,
+      vexanaManager.networkManager,
       scaffoldState,
     );
     loginModelItems.add(
@@ -92,19 +92,17 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
           password: passwordController?.text,
         ),
       );
-      if (response != null) {
-        if (response.token?.isEmpty ?? true) return;
+      if (response?.data != null) {
+        if (response?.data?.token?.isEmpty ?? true) return;
         if (scaffoldState.currentContext != null) {
           ScaffoldMessenger.of(scaffoldState.currentContext!).showSnackBar(
             SnackBar(
-              content: Text(response.token!),
+              content: Text(response!.data!.token!),
             ),
           );
         }
         await localeManager.setStringValue(
-            PreferencesKeys.TOKEN, response.token!);
-      } else {
-        print("response = $response");
+            PreferencesKeys.TOKEN, response!.data!.token!);
       }
     }
     isLoadingChange();

@@ -1,9 +1,42 @@
-import 'package:e_commerce_application/core/base/model/base/result.dart';
-import 'package:e_commerce_application/core/base/model/base_model.dart';
+import 'package:vexana/vexana.dart';
 
-class ErrorResult<T extends BaseModel> extends Result {
-  ErrorResult({
-    required super.statusCode,
-    super.message
+class ErrorResult extends INetworkModel<ErrorResult> {
+
+  final int? statusCode;
+  final String? message;
+
+  const ErrorResult({
+    this.statusCode,
+    this.message,
   });
+
+  @override
+  ErrorResult fromJson(Map<String, dynamic> json) => ErrorResult.fromJson(json);
+
+  factory ErrorResult.fromJson(Map<String, dynamic> json) {
+    return ErrorResult(
+      statusCode: json['statusCode'] as int?,
+      message: json['message'] as String?,
+    );
+  }
+
+  @override
+  Map<String, dynamic>? toJson() => _toJson();
+
+  Map<String, dynamic> _toJson() {
+    return {
+      'statusCode': statusCode,
+      'message': message,
+    };
+  }
+
+  ErrorResult copyWith({
+    int? statusCode,
+    String? message,
+  }) {
+    return ErrorResult(
+      statusCode: statusCode ?? this.statusCode,
+      message: message ?? this.message,
+    );
+  }
 }
