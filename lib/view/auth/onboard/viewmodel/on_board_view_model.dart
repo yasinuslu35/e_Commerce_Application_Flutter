@@ -17,29 +17,39 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
     myContext = context;
   }
 
+  late PageController pageController;
   List<OnBoardModel> onBoardItems = [];
 
   @override
   void init() {
+    pageController = PageController();
     onBoardItems.add(
       OnBoardModel(
-        LocaleKeys.onBoard_page1_title,
-        LocaleKeys.onBoard_page1_description,
-        ImageConstants.instance.astronautSVG,
+        title: LocaleKeys.onBoard_page1_title,
+        description: LocaleKeys.onBoard_page1_description,
+        imagePath: ImageConstants.instance.onBoard1,
+        upTextButton: LocaleKeys.onBoard_page1_upTextButton,
+        downTextButton: LocaleKeys.onBoard_page1_downTextButton,
       ),
     );
     onBoardItems.add(
       OnBoardModel(
-        LocaleKeys.onBoard_page2_title,
-        LocaleKeys.onBoard_page2_description,
-        ImageConstants.instance.chatSVG,
+        title: LocaleKeys.onBoard_page2_title,
+        description: LocaleKeys.onBoard_page2_description,
+        imagePath: ImageConstants.instance.onBoard2,
+        upTextButton: LocaleKeys.onBoard_page2_upTextButton,
+        downTextButton: LocaleKeys.onBoard_page2_downTextButton,
+        prevTextButton: LocaleKeys.onBoard_page2_prevTextButton,
       ),
     );
     onBoardItems.add(
       OnBoardModel(
-        LocaleKeys.onBoard_page3_title,
-        LocaleKeys.onBoard_page3_description,
-        ImageConstants.instance.relaxSVG,
+        title: LocaleKeys.onBoard_page3_title,
+        description: LocaleKeys.onBoard_page3_description,
+        imagePath: ImageConstants.instance.onBoard3,
+        upTextButton: LocaleKeys.onBoard_page3_upTextButton,
+        downTextButton: LocaleKeys.onBoard_page3_downTextButton,
+        prevTextButton: LocaleKeys.onBoard_page2_prevTextButton,
       ),
     );
   }
@@ -65,5 +75,27 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
     await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, true);
     changeLoading();
     navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
+  }
+
+  @action
+  void prevButton() {
+    pageController.animateToPage(
+      currentPageIndex- 1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @action
+  void nextButton() {
+    if (currentPageIndex == onBoardItems.length - 1) {
+      completeToOnBoard();
+    } else {
+      pageController.animateToPage(
+        currentPageIndex+ 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }

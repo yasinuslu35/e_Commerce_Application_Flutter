@@ -2,16 +2,24 @@
   "welcome": "Welcome to My App",
   "onBoard": {
     "page1": {
-      "title": "Make It Good",
-      "description": "You are not alone. You have unique ability to go to another world"
+      "title": "Choose Products",
+      "description": "Explore a wide range of products tailored to your style and needs.",
+      "upTextButton": "Skip",
+      "downTextButton": "Next"
     },
     "page2": {
-      "title": "Make It Good",
-      "description": "You are not alone. You have unique ability to go to another world"
+      "title": "Make Payment",
+      "description": "Enjoy secure and flexible payment options designed for your convenience",
+      "upTextButton": "Skip",
+      "downTextButton": "Next",
+      "prevTextButton": "Prev"
     },
     "page3": {
-      "title": "Make It Good",
-      "description": "You are not alone. You have unique ability to go to another world"
+      "title": "Get Your Order",
+      "description": "Sit back and relax — your order is on the way to your doorstep.",
+      "upTextButton": "Skip",
+      "downTextButton": "Get Started",
+      "prevTextButton": "Prev"
     }
   },
   "login": {

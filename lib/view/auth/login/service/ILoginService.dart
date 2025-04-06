@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/core/base/model/base/data_result.dart';
 import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 
@@ -11,5 +12,5 @@ abstract class ILoginService {
 
   ILoginService(this.manager, this.scaffoldKey);
 
-  Future<LoginResponseModel?> fetchUserControl(LoginRequestModel model);
+  Future<DataResult<LoginResponseModel>?> fetchUserControl(LoginRequestModel model);
 }

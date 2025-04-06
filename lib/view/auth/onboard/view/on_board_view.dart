@@ -1,6 +1,8 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
 import 'package:e_commerce_application/core/components/text/auto_locale_text.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
+import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_widgets/button/onBoard_text_button.dart';
 import 'package:e_commerce_application/view/_product/_widgets/list_view/on_board_indicator.dart';
 import 'package:e_commerce_application/view/auth/onboard/model/on_board_model.dart';
 import 'package:e_commerce_application/view/auth/onboard/viewmodel/on_board_view_model.dart';
@@ -21,6 +23,7 @@ class OnBoardView extends StatelessWidget {
       },
       onPageBuilder: (BuildContext context, OnBoardViewModel viewModel) {
         return Scaffold(
+          appBar: buildAppBar(viewModel),
           body: Padding(
             padding: context.paddingNormalHorizontal,
             child: Column(
@@ -29,7 +32,7 @@ class OnBoardView extends StatelessWidget {
                 Expanded(flex: 5, child: buildPageView(viewModel)),
                 Expanded(
                   flex: 2,
-                  child: buildRowFooter(context,viewModel),
+                  child: buildRowFooter(context, viewModel),
                 ),
               ],
             ),
@@ -39,8 +42,40 @@ class OnBoardView extends StatelessWidget {
     );
   }
 
+  AppBar buildAppBar(OnBoardViewModel viewModel) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      leading: buildAppBarText(viewModel),
+      actions: [
+        OnboardTextButton(
+          viewModel: viewModel,
+          buttonType: LocaleKeys.onBoard_page1_upTextButton,
+          onPressed: viewModel.completeToOnBoard,
+          color: Colors.black,
+        ),
+      ],
+    );
+  }
+
+  Observer buildAppBarText(OnBoardViewModel viewModel) {
+    return Observer(
+      builder: (context) => Padding(
+        padding: context.paddingLow,
+        child: Text(
+          "${viewModel.currentPageIndex + 1}/3",
+          style: TextStyle(
+            fontSize: context.width * 0.05,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
   PageView buildPageView(OnBoardViewModel viewModel) {
     return PageView.builder(
+      controller: viewModel.pageController,
       itemCount: viewModel.onBoardItems.length,
       onPageChanged: (value) {
         viewModel.onPageChanged(value);
@@ -51,41 +86,54 @@ class OnBoardView extends StatelessWidget {
     );
   }
 
-  Row buildRowFooter(BuildContext context,OnBoardViewModel viewModel) {
+  Row buildRowFooter(BuildContext context, OnBoardViewModel viewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          flex: 2,
-          child: buildObserver(viewModel),
+        buildPrevButton(viewModel),
+        buildIndicator(viewModel),
+        Observer(
+          builder: (context) {
+            return Visibility(
+              visible: viewModel.isLoading,
+              child: const CircularProgressIndicator(),
+            );
+          },
         ),
-        Expanded(
-          child: Center(
-            child: Observer(
-              builder: (context) {
-                return Visibility(
-                  visible: viewModel.isLoading,
-                  child: const CircularProgressIndicator(),
-                );
-              },
-            ),
-          ),
-        ),
-        buildFloatingActionButton(context, viewModel),
+        buildTextButton(context, viewModel),
       ],
     );
   }
 
-  FloatingActionButton buildFloatingActionButton(BuildContext context, OnBoardViewModel viewModel) {
-    return FloatingActionButton(
-      onPressed: () {
-        viewModel.completeToOnBoard();
-      },
-      child: const Icon(Icons.keyboard_arrow_right),
+  Observer buildPrevButton(OnBoardViewModel viewModel) {
+    return Observer(
+      builder: (context) => viewModel.currentPageIndex == 0
+          ? const SizedBox()
+          : OnboardTextButton(
+              viewModel: viewModel,
+              buttonType: LocaleKeys.onBoard_page2_prevTextButton,
+              onPressed: () {
+                viewModel.prevButton();
+              },
+              color: Colors.grey,
+            ),
     );
   }
 
-  Observer buildObserver(OnBoardViewModel viewModel) {
+  Widget buildTextButton(BuildContext context, OnBoardViewModel viewModel) {
+    return Observer(
+      builder: (context) => OnboardTextButton(
+        viewModel: viewModel,
+        buttonType:
+            viewModel.onBoardItems[viewModel.currentPageIndex].downTextButton,
+        onPressed: () {
+          viewModel.nextButton();
+        },
+      ),
+    );
+  }
+
+  Observer buildIndicator(OnBoardViewModel viewModel) {
     return Observer(
       builder: (context) => OnBoardIndicator(
         itemCount: viewModel.onBoardItems.length,

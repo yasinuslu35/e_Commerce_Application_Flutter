@@ -8,7 +8,7 @@ class LoginRequestModel extends INetworkModel<LoginRequestModel> {
   final String? username;
   final String? password;
 
-  LoginRequestModel({
+  const LoginRequestModel({
     this.username,
     this.password,
   });

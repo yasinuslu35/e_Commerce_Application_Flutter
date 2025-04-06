@@ -40,7 +40,7 @@ abstract class _BuildFeedViewModelBase extends BaseViewModel with Store {
   @override
   void init() {
     helper = DecorationHelper(context: myContext);
-    feedService = BuildFeedService(vexanaManager!.networkManager, scaffoldKey);
+    feedService = BuildFeedService(vexanaManager.networkManager, scaffoldKey);
   }
 
   @action
@@ -52,8 +52,6 @@ abstract class _BuildFeedViewModelBase extends BaseViewModel with Store {
   Future<void> getListAll() async {
     _changeLoading();
     houseModels = await feedService.fetchUserHouseList();
-    print("house models = ${houseModels?[0].brandName}");
-
     _changeLoading();
   }
 }

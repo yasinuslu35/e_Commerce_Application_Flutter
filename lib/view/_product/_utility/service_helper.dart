@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:vexana/vexana.dart';
 
 mixin class ServiceHelper {
   void showMessage(
     GlobalKey<ScaffoldState>? scaffoldKey,
-    IErrorModel<dynamic>? errorModel,
+    Map<String, dynamic>? errorModel,
   ) {
     if (scaffoldKey == null || errorModel == null) return;
+
+    final valuesList = errorModel.values.whereType<String>().toList();
 
     if (scaffoldKey.currentContext == null) return;
     ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(
       SnackBar(
-          content: Text(
-        errorModel.description ?? errorModel.statusCode.toString(),
+          content: ListView.builder(
+        itemCount: valuesList.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Text(valuesList[index].toString());
+        },
       )),
     );
   }

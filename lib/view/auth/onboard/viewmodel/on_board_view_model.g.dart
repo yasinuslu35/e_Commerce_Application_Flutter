@@ -67,6 +67,28 @@ mixin _$OnBoardViewModel on _OnBoardViewModelBase, Store {
   }
 
   @override
+  void prevButton() {
+    final _$actionInfo = _$_OnBoardViewModelBaseActionController.startAction(
+        name: '_OnBoardViewModelBase.prevButton');
+    try {
+      return super.prevButton();
+    } finally {
+      _$_OnBoardViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void nextButton() {
+    final _$actionInfo = _$_OnBoardViewModelBaseActionController.startAction(
+        name: '_OnBoardViewModelBase.nextButton');
+    try {
+      return super.nextButton();
+    } finally {
+      _$_OnBoardViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 currentPageIndex: ${currentPageIndex},

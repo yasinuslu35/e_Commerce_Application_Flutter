@@ -2,16 +2,24 @@
   "welcome": "Uygulamama hoşgeldiniz.",
   "onBoard": {
     "page 1": {
-      "title": "İyi Hale Getir",
-      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+      "title": "Ürünleri Seç",
+      "description": "Tarzına ve ihtiyacına uygun binlerce ürünü keşfet.",
+      "upTextButton": "Atla",
+      "downTextButton": "İleri"
     },
     "page 2": {
-      "title": "İyi Hale Getir",
-      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+      "title": "Ödemeni Yap",
+      "description": "Güvenli ve kolay ödeme yöntemleriyle alışverişini tamamla.",
+      "upTextButton": "Atla",
+      "downTextButton": "İleri",
+      "prevTextButton": "Geri"
     },
     "page 3": {
-      "title": "İyi Hale Getir",
-      "description": "Yalnız değilsin. Başka bir dünyaya geçebilme gibi eşsiz bir güce sahipsin."
+      "title": "Siparişini Al",
+      "description": "Arkana yaslan, siparişin en kısa sürede kapında.",
+      "upTextButton": "Atla",
+      "downTextButton": "Hadi Başlayalım",
+      "prevTextButton": "Geri"
     }
   },
   "login": {

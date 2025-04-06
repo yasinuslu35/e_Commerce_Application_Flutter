@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UserView extends StatelessWidget {
+  const UserView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,9 +50,9 @@ class UserView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.25,
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         TextField(),
                         TextField(),
                         ElevatedButton(

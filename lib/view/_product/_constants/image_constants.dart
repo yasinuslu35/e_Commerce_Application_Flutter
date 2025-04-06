@@ -12,7 +12,7 @@ class ImageConstants {
 
   final hotDog = "hotdogs".toPNG;
 
-  final relaxSVG = "relax".toSVG;
-  final astronautSVG = "astronaut".toSVG;
-  final chatSVG = "chat".toSVG;
+  final onBoard1 = "onBoard1".toSVG;
+  final onBoard2 = "onBoard2".toSVG;
+  final onBoard3 = "onBoard3".toSVG;
 }

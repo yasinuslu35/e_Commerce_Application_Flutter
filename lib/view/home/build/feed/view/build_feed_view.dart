@@ -200,7 +200,7 @@ class BuildFeedView extends StatelessWidget {
               ),
               maxLines: 1,
             ),
-            Text("Description"),
+            const Text("Description"),
           ],
         ),
       ],

@@ -17,6 +17,11 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   @override
   ThemeData get theme => ThemeData(
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: colorSchemeLight.red,
+          ),
+        ),
         colorScheme: _appColorScheme,
         textTheme: textTheme(),
         inputDecorationTheme: inputDecorationTheme(),
@@ -31,9 +36,8 @@ class AppThemeLight extends AppTheme with ILightTheme {
         tabBarTheme: tabBarTheme,
         appBarTheme: appBarTheme(),
         cardTheme: ThemeData.light().cardTheme.copyWith(
-          color: Colors.white,
-
-        ),
+              color: Colors.white,
+            ),
         fontFamily: ApplicationConstants.FONT_FAMILY,
       );
 
@@ -84,7 +88,6 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   TextTheme textTheme() {
     return ThemeData.light().textTheme.copyWith(
-
           headlineLarge: textThemeLight.headlineLarge,
           headlineMedium: textThemeLight.headlineMedium.copyWith(
             color: Colors.black,
