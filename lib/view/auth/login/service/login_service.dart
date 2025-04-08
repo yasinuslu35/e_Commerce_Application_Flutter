@@ -11,8 +11,7 @@ class LoginService extends ILoginService with ServiceHelper {
   LoginService(super.manager, super.scaffoldKey);
 
   @override
-  Future<DataResult<LoginResponseModel>?> fetchUserControl(
-      LoginRequestModel model) async {
+  Future<DataResult<LoginResponseModel>?> fetchUserControl(LoginRequestModel model) async {
     final response = await manager.send<BaseEntityModel, BaseEntityModel>(
       NetworkRoutes.LOGIN.rawValue,
       urlSuffix: "login",
@@ -23,21 +22,42 @@ class LoginService extends ILoginService with ServiceHelper {
     final errorModel = response.error?.model;
 
     if (response.data?.data is LoginResponseModel) {
-      showMessage(scaffoldKey, response.data?.toJson());
+      print("response.data = ${response.data?.data}");
       return DataResult(data: response.data?.data);
       //return response.data?.data;
-    } else if (response.error != null) {
-      if (errorModel is ErrorDataResult) {
-        if (errorModel.data == null) {
+    } else if(response.error != null) {
+      if(errorModel is ErrorDataResult) {
+
+        if(errorModel.data == null) {
           showMessage(scaffoldKey, response.error?.model?.toJson());
-        } else {
+        }
+        else {
+          print("errormodel.data = ${errorModel.data?.toJson()}");
+          print("errormodel.data runtymetipe = ${errorModel.data?.toJson().runtimeType}");
           showMessage(scaffoldKey, errorModel.data?.toJson());
         }
+
       }
+      print("error model type = ${response.error?.model}");
+      //showMessage(scaffoldKey, response.error?.model?.toJson());
       return DataResult(error: response.error?.model);
-    } else {
+    }
+    else {
       showMessage(scaffoldKey, response.error?.model?.toJson());
       return DataResult(error: response.error?.model);
     }
   }
 }
+
+// BEFORE: null safety before
+// @override
+// Future<LoginResponseModel> fetchUserControl(LoginModel model) async {
+//   final response = await manager.fetch<LoginResponseModel, LoginResponseModel>(NetworkRoutes.LOGIN.rawValue,
+//       parseModel: LoginResponseModel(), method: RequestType.POST, data: model);
+
+//   if (response.data is LoginResponseModel) {
+//     return response.data;
+//   } else {
+//     return null;
+//   }
+// }

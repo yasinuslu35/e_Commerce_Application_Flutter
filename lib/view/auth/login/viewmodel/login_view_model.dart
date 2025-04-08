@@ -94,6 +94,13 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
       );
       if (response?.data != null) {
         if (response?.data?.token?.isEmpty ?? true) return;
+        if (scaffoldState.currentContext != null) {
+          ScaffoldMessenger.of(scaffoldState.currentContext!).showSnackBar(
+            SnackBar(
+              content: Text(response!.data!.token!),
+            ),
+          );
+        }
         await localeManager.setStringValue(
             PreferencesKeys.TOKEN, response!.data!.token!);
       }
