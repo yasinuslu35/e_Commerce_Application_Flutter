@@ -25,22 +25,6 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
-  late final _$isPasswordVisibleAtom =
-      Atom(name: '_LoginViewModelBase.isPasswordVisible', context: context);
-
-  @override
-  bool get isPasswordVisible {
-    _$isPasswordVisibleAtom.reportRead();
-    return super.isPasswordVisible;
-  }
-
-  @override
-  set isPasswordVisible(bool value) {
-    _$isPasswordVisibleAtom.reportWrite(value, super.isPasswordVisible, () {
-      super.isPasswordVisible = value;
-    });
-  }
-
   late final _$fetchLoginServiceAsyncAction =
       AsyncAction('_LoginViewModelBase.fetchLoginService', context: context);
 
@@ -51,17 +35,6 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
 
   late final _$_LoginViewModelBaseActionController =
       ActionController(name: '_LoginViewModelBase', context: context);
-
-  @override
-  void changePasswordVisibility() {
-    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
-        name: '_LoginViewModelBase.changePasswordVisibility');
-    try {
-      return super.changePasswordVisibility();
-    } finally {
-      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void isLoadingChange() {
@@ -77,8 +50,7 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
   @override
   String toString() {
     return '''
-isLoading: ${isLoading},
-isPasswordVisible: ${isPasswordVisible}
+isLoading: ${isLoading}
     ''';
   }
 }

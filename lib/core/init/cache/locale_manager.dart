@@ -34,5 +34,5 @@ class LocaleManager {
       _preferences?.getString(key.toString()) ?? "";
 
   bool getBooleanValue(PreferencesKeys key) =>
-      _preferences?.getBool(key.toString()) ?? false;
+      _preferences?.getBool(key.toString()) ?? true;
 }

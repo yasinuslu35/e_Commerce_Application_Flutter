@@ -1,8 +1,10 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
+import 'package:e_commerce_application/core/components/icons/google_icons.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
+import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
-import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
+import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
 import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
 import 'package:e_commerce_application/view/auth/login/service/login_service.dart';
@@ -21,29 +23,34 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
   TextEditingController? emailController;
   TextEditingController? passwordController;
 
+  List<LoginAuthButtonModel> loginAuthButtonModels = [];
+
   @override
   void setContext(BuildContext context) => myContext = context;
 
-  List<LoginModel> loginModelItems = [];
-
   @override
   void init() {
+    loginAuthButtonModels.add(
+      LoginAuthButtonModel(
+        icon: AuthIcon.google,
+        color: myContext.myColors.red,
+      ),
+    );
+    loginAuthButtonModels.add(
+      LoginAuthButtonModel(
+        icon: Icons.apple,
+        color: Colors.black,
+      ),
+    );
+    loginAuthButtonModels.add(
+      LoginAuthButtonModel(
+        icon: AuthIcon.facebook,
+        color: Colors.blue,
+      ),
+    );
     loginService = LoginService(
       vexanaManager.networkManager,
       scaffoldState,
-    );
-    loginModelItems.add(
-      LoginModel(
-        tab1: LocaleKeys.login_tab1,
-        tab2: LocaleKeys.login_tab2,
-        email: LocaleKeys.login_email,
-        password: LocaleKeys.login_password,
-        forgotText: LocaleKeys.login_forgotText,
-        loginButtonText: LocaleKeys.login_login,
-        dontAccount: LocaleKeys.login_dontAccount,
-        validUsername: LocaleKeys.login_validUsername,
-        validPassword: LocaleKeys.login_validPassword,
-      ),
     );
 
     emailController = TextEditingController();
@@ -52,14 +59,6 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
 
   @observable
   bool isLoading = false;
-
-  @observable
-  bool isPasswordVisible = false;
-
-  @action
-  void changePasswordVisibility() {
-    isPasswordVisible = !isPasswordVisible;
-  }
 
   @action
   void isLoadingChange() {

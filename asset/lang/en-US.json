@@ -23,13 +23,16 @@
     }
   },
   "login": {
-    "tab1": "Login",
-    "tab2": "Sign Up",
-    "email": "Username",
+    "welcomeText": "Welcome Back!",
+    "email": "Username or Email",
     "password": "Password",
-    "forgotText": "Forgot Password",
-    "login": "Login",
-    "dontAccount": "Don't have a account?",
+    "forgotText": "Forgot Password?",
+    "loginButton": "Login",
+    "footer":{
+      "orText": "- OR Continue with -",
+      "createText": "Create An Account",
+      "signUpText": "Sign Up"
+    },
     "validUsername": "Username does not valid",
     "validPassword": "Please enter password"
   },

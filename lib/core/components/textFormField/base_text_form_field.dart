@@ -27,6 +27,7 @@ class BaseTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         labelText: labelText,
         labelStyle: context.textTheme.titleSmall,
         suffixIcon: suffixIcon,

@@ -17,7 +17,7 @@ class TextThemeLight {
   );
   final TextStyle headlineMedium = const TextStyle(
     fontSize: 48,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
   );
   final TextStyle headlineSmall = const TextStyle(
     fontSize: 24,

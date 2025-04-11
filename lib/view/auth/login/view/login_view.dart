@@ -1,19 +1,17 @@
 import 'package:e_commerce_application/core/base/view/base_view.dart';
 import 'package:e_commerce_application/core/components/button/title_elevated_button.dart';
-import 'package:e_commerce_application/core/components/text/locale_text.dart';
-import 'package:e_commerce_application/core/components/textFormField/base_text_form_field.dart';
-import 'package:e_commerce_application/core/components/textFormField/password_text_form_field.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
-import 'package:e_commerce_application/view/_product/_constants/image_constants.dart';
-import 'package:e_commerce_application/view/_product/_widgets/loginTabBar/login_tabbar_business.dart';
-import 'package:e_commerce_application/view/auth/login/model/login_model.dart';
+import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_widgets/TextField/default_text_form_field.dart';
+import 'package:e_commerce_application/view/_product/_widgets/TextField/password_text_form_fields.dart';
+import 'package:e_commerce_application/view/_product/_widgets/button/auth_button.dart';
+import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginView extends StatelessWidget {
-
   const LoginView({super.key});
 
   @override
@@ -25,113 +23,77 @@ class LoginView extends StatelessWidget {
         model.init();
       },
       onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
-        return DefaultTabController(
-          length: 2,
-          child: buildScaffold(
-              context, viewModel, viewModel.loginModelItems.first),
+        return Scaffold(
+          key: viewModel.scaffoldState,
+          resizeToAvoidBottomInset: false,
+          body: Padding(
+            padding: context.paddingNormal,
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildHeader(context),
+                  buildBody(context, viewModel),
+                  buildFooter(context, viewModel),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );
   }
 
-  Scaffold buildScaffold(
-      BuildContext context, LoginViewModel viewModel, LoginModel model) {
-    return Scaffold(
-      key: viewModel.scaffoldState,
-      body: SafeArea(
+  Expanded buildHeader(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Center(
+        child: Text(
+          LocaleKeys.login_welcomeText.locale,
+          style: context.textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+
+  Expanded buildBody(BuildContext context, LoginViewModel viewModel) {
+    return Expanded(
+      flex: 5,
+      child: Form(
+        key: viewModel.formState,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            buildAnimatedContainer(context),
-            LoginTabbarBusiness(
-              tabs: [
-                Tab(
-                  text: "   ${model.tab1.locale}   ",
-                ),
-                Tab(
-                  text: " ${model.tab2.locale} ",
-                ),
-              ],
+            DefaultTextFormField(
+              controller: viewModel.emailController,
+              validator: (p0) => viewModel.usernameValidation(p0),
             ),
-            Expanded(
-              flex: 6,
-              child: Padding(
-                padding: context.paddingLow,
-                child: buildForm(viewModel, context),
-              ),
+            SizedBox(
+              height: context.height * 0.03,
             ),
+            PasswordTextFormField(
+              controller: viewModel.passwordController,
+              validator: (p0) => viewModel.passwordValidation(p0),
+            ),
+            buildForgotTextButton(),
+            buildLoginButton(context, viewModel)
           ],
         ),
       ),
     );
   }
 
-  AnimatedContainer buildAnimatedContainer(BuildContext context) {
-    return AnimatedContainer(
-      duration: context.lowDuration,
-      height:
-          context.mediaQuery.viewInsets.bottom > 0 ? 0 : context.height * 0.3,
-      color: Colors.white,
-      child: Center(
-        child: Image.asset(ImageConstants.instance.hotDog),
+  TextButton buildForgotTextButton() {
+    return TextButton(
+      onPressed: () {},
+      child: Text(
+        LocaleKeys.login_forgotText.locale,
+        textAlign: TextAlign.start,
       ),
     );
   }
 
-  Form buildForm(LoginViewModel viewModel, BuildContext context) {
-    return Form(
-      key: viewModel.formState,
-      autovalidateMode: AutovalidateMode.onUnfocus,
-      child: Column(
-        children: [
-          const Spacer(
-            flex: 6,
-          ),
-          eMailTextFormField(
-              context, viewModel, viewModel.loginModelItems.first),
-          const Spacer(),
-          passwordTextFormField(
-              context, viewModel, viewModel.loginModelItems.first),
-          buildTextForgot(viewModel.loginModelItems.first),
-          const Spacer(
-            flex: 6,
-          ),
-          buildTitleLoginButton(
-              context, viewModel, viewModel.loginModelItems.first),
-          buildWrapChange(viewModel.loginModelItems.first),
-          const Spacer(
-            flex: 2,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Align buildTextForgot(LoginModel model) => Align(
-        alignment: Alignment.centerRight,
-        child: LocaleText(
-          value: model.forgotText,
-        ),
-      );
-
-  Wrap buildWrapChange(LoginModel model) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        LocaleText(
-          value: model.dontAccount,
-        ),
-        TextButton(
-          onPressed: () {},
-          child: LocaleText(
-            value: model.tab2,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildTitleLoginButton(
-      BuildContext context, LoginViewModel viewModel, LoginModel model) {
+  Widget buildLoginButton(BuildContext context, LoginViewModel viewModel) {
     return Observer(
       builder: (context) => TitleElevatedButton(
         onPressed: viewModel.isLoading
@@ -139,56 +101,68 @@ class LoginView extends StatelessWidget {
             : () {
                 viewModel.fetchLoginService();
               },
-        text: model.loginButtonText.locale,
-        color: context.colors.onError,
+        text: LocaleKeys.login_loginButton.locale,
+        color: context.myColors.authButtonColor,
       ),
     );
   }
 
-  Observer passwordTextFormField(
-      BuildContext context, LoginViewModel viewModel, LoginModel model) {
-    return Observer(
-      builder: (context) => PasswordTextFormField(
-        controller: viewModel.passwordController,
-        obscureText: viewModel.isPasswordVisible,
-        validator: (value) => viewModel.passwordValidation(value),
-        suffixIcon: buildSuffixIcon(viewModel),
-      ),
-    );
-  }
-
-  Widget buildSuffixIcon(LoginViewModel viewModel) => InkWell(
-        onTap: () {
-          viewModel.changePasswordVisibility();
-        },
-        child: Observer(
-          builder: (context) => Icon(
-            viewModel.isPasswordVisible
-                ? Icons.visibility_off
-                : Icons.visibility,
-          ),
+  Expanded buildFooter(BuildContext context, viewModel) {
+    return Expanded(
+      flex: 4,
+      child: Center(
+        child: Column(
+          children: [
+            Text(LocaleKeys.login_footer_orText.locale),
+            SizedBox(
+              height: context.width * 0.04,
+            ),
+            buildAuthButtons(context, viewModel),
+            SizedBox(
+              height: context.width * 0.04,
+            ),
+            buildFooterText(),
+          ],
         ),
-      );
-
-  Widget eMailTextFormField(
-      BuildContext context, LoginViewModel viewModel, LoginModel model) {
-    return BaseTextFormField(
-      labelText: model.email.locale,
-      icon: Icons.email,
-      controller: viewModel.emailController,
-      validator: (value) => viewModel.usernameValidation(value),
+      ),
     );
   }
 
-  Padding buildIcon(BuildContext context, IconData icon) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: context.height * 0.03,
-      ),
-      child: Icon(
-        icon,
-        size: context.width * 0.07,
-        color: context.colors.onError,
+  Row buildFooterText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(LocaleKeys.login_footer_createText.locale),
+        TextButton(
+          onPressed: () {},
+          child: Text(LocaleKeys.login_footer_signUpText.locale),
+        ),
+      ],
+    );
+  }
+
+  SizedBox buildAuthButtons(BuildContext context, viewModel) {
+    return SizedBox(
+      width: context.width * 0.7,
+      height: context.width * 0.17,
+      child: Center(
+        child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return SizedBox(
+              width: context.width * 0.05,
+            );
+          },
+          itemCount: 3,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            LoginAuthButtonModel model = viewModel.loginAuthButtonModels[index];
+            return AuthButton(
+              icon: model.icon,
+              color: model.color,
+            );
+          },
+        ),
       ),
     );
   }

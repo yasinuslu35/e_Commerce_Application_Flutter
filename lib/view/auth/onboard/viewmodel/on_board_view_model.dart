@@ -72,7 +72,7 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
 
   Future<void> completeToOnBoard() async {
     changeLoading();
-    await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, true);
+    await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, false);
     changeLoading();
     navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }

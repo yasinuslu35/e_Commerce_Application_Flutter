@@ -14,6 +14,8 @@ class NavigationRoute {
 
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
+      case NavigationConstants.DEFAULT:
+        return normalNavigate(const LoginView());
       case NavigationConstants.TEST_VIEW:
         return normalNavigate(const TestsView());
       case NavigationConstants.LOGIN_VIEW:

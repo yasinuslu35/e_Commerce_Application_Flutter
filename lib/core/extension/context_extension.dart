@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:e_commerce_application/core/init/theme/light/color_scheme_light.dart';
 import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
@@ -26,6 +27,8 @@ extension ThemeExtension on BuildContext {
   TextTheme get textTheme => theme.textTheme;
 
   ColorScheme get colors => theme.colorScheme;
+
+  ColorSchemeLight get myColors => ColorSchemeLight.instance;
 }
 
 extension PaddingExtensionAll on BuildContext {

@@ -3,13 +3,13 @@ import '../../extension/string_extension.dart';
 import '../../init/lang/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
-class PasswordTextFormField extends StatelessWidget {
+class BasePasswordTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool obscureText;
   final Widget? suffixIcon;
 
-  const PasswordTextFormField({
+  const BasePasswordTextFormField({
     super.key,
     this.controller,
     this.validator,

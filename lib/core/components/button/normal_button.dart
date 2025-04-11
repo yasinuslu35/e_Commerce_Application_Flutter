@@ -16,9 +16,12 @@ class NormalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(
-        elevation: const WidgetStatePropertyAll(10),
-        backgroundColor: WidgetStatePropertyAll(color),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        elevation: 10,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
       ),
       onPressed: onPressed,
       child: Padding(
@@ -28,3 +31,8 @@ class NormalButton extends StatelessWidget {
     );
   }
 }
+
+/*
+        elevation: const WidgetStatePropertyAll(10),
+        backgroundColor: WidgetStatePropertyAll(color),
+ */

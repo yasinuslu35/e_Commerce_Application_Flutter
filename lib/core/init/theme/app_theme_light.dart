@@ -19,7 +19,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
   ThemeData get theme => ThemeData(
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: colorSchemeLight.red,
+            foregroundColor: colorSchemeLight.authButtonColor,
           ),
         ),
         colorScheme: _appColorScheme,
@@ -32,7 +32,7 @@ class AppThemeLight extends AppTheme with ILightTheme {
                   ),
                   backgroundColor: colorSchemeLight.green,
                 ),
-        scaffoldBackgroundColor: colorSchemeLight.scaffoldColorLoginPage,
+        scaffoldBackgroundColor: colorSchemeLight.scaffoldColor,
         tabBarTheme: tabBarTheme,
         appBarTheme: appBarTheme(),
         cardTheme: ThemeData.light().cardTheme.copyWith(
@@ -44,17 +44,17 @@ class AppThemeLight extends AppTheme with ILightTheme {
   InputDecorationTheme inputDecorationTheme() {
     return InputDecorationTheme(
       focusColor: Colors.black12,
-      enabledBorder: UnderlineInputBorder(
+      enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: colorSchemeLight.red,
         ),
       ),
-      border: UnderlineInputBorder(
+      border: OutlineInputBorder(
         borderSide: BorderSide(
           color: colorSchemeLight.red,
         ),
       ),
-      focusedBorder: UnderlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: colorSchemeLight.blue,
         ),
@@ -88,9 +88,11 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   TextTheme textTheme() {
     return ThemeData.light().textTheme.copyWith(
+
           headlineLarge: textThemeLight.headlineLarge,
           headlineMedium: textThemeLight.headlineMedium.copyWith(
             color: Colors.black,
+            fontFamily: "Poppins",
           ),
           headlineSmall: textThemeLight.headlineSmall.copyWith(
             color: Colors.black,

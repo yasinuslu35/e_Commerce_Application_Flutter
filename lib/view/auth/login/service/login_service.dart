@@ -20,6 +20,7 @@ class LoginService extends ILoginService with ServiceHelper {
       data: model,
     );
     final errorModel = response.error?.model;
+    print("errorModel = ${errorModel.toString()}");
 
     if (response.data?.data is LoginResponseModel) {
       print("response.data = ${response.data?.data}");
