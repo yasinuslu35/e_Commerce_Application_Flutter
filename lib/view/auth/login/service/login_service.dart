@@ -11,7 +11,8 @@ class LoginService extends ILoginService with ServiceHelper {
   LoginService(super.manager, super.scaffoldKey);
 
   @override
-  Future<DataResult<LoginResponseModel>?> fetchUserControl(LoginRequestModel model) async {
+  Future<DataResult<LoginResponseModel>?> fetchUserControl(
+      LoginRequestModel model) async {
     final response = await manager.send<BaseEntityModel, BaseEntityModel>(
       NetworkRoutes.LOGIN.rawValue,
       urlSuffix: "login",
@@ -20,32 +21,17 @@ class LoginService extends ILoginService with ServiceHelper {
       data: model,
     );
     final errorModel = response.error?.model;
-    print("errorModel = ${errorModel.toString()}");
-
-    if (response.data?.data is LoginResponseModel) {
-      print("response.data = ${response.data?.data}");
-      return DataResult(data: response.data?.data);
-      //return response.data?.data;
-    } else if(response.error != null) {
+    final successModel = response.data?.data;
+    print("errorModel.data = ${errorModel?.toJson()}");
+    if (successModel != null) {
+      return DataResult(data: successModel);
+    } else if (errorModel != null) {
       if(errorModel is ErrorDataResult) {
-
-        if(errorModel.data == null) {
-          showMessage(scaffoldKey, response.error?.model?.toJson());
-        }
-        else {
-          print("errormodel.data = ${errorModel.data?.toJson()}");
-          print("errormodel.data runtymetipe = ${errorModel.data?.toJson().runtimeType}");
-          showMessage(scaffoldKey, errorModel.data?.toJson());
-        }
-
+        return DataResult(error: errorModel);
       }
-      print("error model type = ${response.error?.model}");
-      //showMessage(scaffoldKey, response.error?.model?.toJson());
-      return DataResult(error: response.error?.model);
-    }
-    else {
-      showMessage(scaffoldKey, response.error?.model?.toJson());
-      return DataResult(error: response.error?.model);
+      return DataResult(error: errorModel);
+    } else {
+      return null;
     }
   }
 }

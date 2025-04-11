@@ -1,9 +1,11 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
+import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/core/components/icons/google_icons.dart';
 import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
 import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
@@ -15,7 +17,8 @@ part 'login_view_model.g.dart';
 
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 
-abstract class _LoginViewModelBase extends BaseViewModel with Store {
+abstract class _LoginViewModelBase extends BaseViewModel
+    with Store, ServiceHelper {
   GlobalKey<FormState> formState = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   late ILoginService loginService;
@@ -94,14 +97,18 @@ abstract class _LoginViewModelBase extends BaseViewModel with Store {
       if (response?.data != null) {
         if (response?.data?.token?.isEmpty ?? true) return;
         if (scaffoldState.currentContext != null) {
-          ScaffoldMessenger.of(scaffoldState.currentContext!).showSnackBar(
-            SnackBar(
-              content: Text(response!.data!.token!),
-            ),
-          );
+          await localeManager.setStringValue(
+              PreferencesKeys.TOKEN, response!.data!.token!);
         }
-        await localeManager.setStringValue(
-            PreferencesKeys.TOKEN, response!.data!.token!);
+      } else if (response?.error != null) {
+        final errorResult = response?.error as ErrorDataResult;
+        if(errorResult.data != null) {
+          showMessage(errorResult, myContext);
+        }
+        else {
+          showMessage(errorResult, myContext);
+        }
+
       }
     }
     isLoadingChange();
