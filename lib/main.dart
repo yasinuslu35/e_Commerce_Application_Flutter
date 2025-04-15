@@ -1,9 +1,9 @@
-import 'package:e_commerce_application/core/constants/app/app_constants.dart';
 import 'package:e_commerce_application/core/init/lang/language_service.dart';
 import 'package:e_commerce_application/core/init/navigation/navigation_route.dart';
 import 'package:e_commerce_application/core/init/navigation/navigation_service.dart';
 import 'package:e_commerce_application/core/init/notifier/provider_list.dart';
 import 'package:e_commerce_application/core/init/notifier/theme_notifier.dart';
+import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

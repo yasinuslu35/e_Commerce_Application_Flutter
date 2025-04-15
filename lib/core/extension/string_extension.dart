@@ -1,6 +1,7 @@
+import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../constants/app/app_constants.dart';
+
 
 extension StringLocalization on String {
   String get locale => this.tr();

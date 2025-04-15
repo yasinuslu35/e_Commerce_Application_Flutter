@@ -11,7 +11,7 @@ class LoginService extends ILoginService with ServiceHelper {
   LoginService(super.manager, super.scaffoldKey);
 
   @override
-  Future<DataResult<LoginResponseModel>?> fetchUserControl(
+  Future<DataResult<UserResponseModel>?> fetchUserControl(
       LoginRequestModel model) async {
     final response = await manager.send<BaseEntityModel, BaseEntityModel>(
       NetworkRoutes.LOGIN.rawValue,
@@ -22,11 +22,10 @@ class LoginService extends ILoginService with ServiceHelper {
     );
     final errorModel = response.error?.model;
     final successModel = response.data?.data;
-    print("errorModel.data = ${errorModel?.toJson()}");
     if (successModel != null) {
       return DataResult(data: successModel);
     } else if (errorModel != null) {
-      if(errorModel is ErrorDataResult) {
+      if (errorModel is ErrorDataResult) {
         return DataResult(error: errorModel);
       }
       return DataResult(error: errorModel);
@@ -34,17 +33,50 @@ class LoginService extends ILoginService with ServiceHelper {
       return null;
     }
   }
+
+  @override
+  Future<DataResult<UserResponseModel>?> googleSignIn(String idToken) async {
+    final response = await manager.send<BaseEntityModel, BaseEntityModel>(
+      NetworkRoutes.LOGIN.rawValue,
+      urlSuffix: "google",
+      parseModel: const BaseEntityModel(),
+      method: RequestType.POST,
+      data: idToken,
+    );
+    final errorModel = response.error?.model;
+    final successModel = response.data?.data;
+    if (successModel != null) {
+      return DataResult(data: successModel);
+    } else if (errorModel != null) {
+      if (errorModel is ErrorDataResult) {
+        return DataResult(error: errorModel);
+      }
+      return DataResult(error: errorModel);
+    } else {
+      return null;
+    }
+  }
+
+/*
+  @override
+  Future<void> sendTokenToBackend(String idToken) async {
+    // Burada token'ı backend'e göndereceksin
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8080/api/auth/google'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({'idToken': idToken}),
+    );
+    print('response.statusCode ${response.statusCode}');
+    print('response.body ${response.body}');
+    if (response.statusCode == 200) {
+      print('Token doğrulandı');
+      // Backend'den gelen sonucu işle
+    } else {
+      print('Token doğrulama başarısız');
+    }
+  }
+
+   */
 }
-
-// BEFORE: null safety before
-// @override
-// Future<LoginResponseModel> fetchUserControl(LoginModel model) async {
-//   final response = await manager.fetch<LoginResponseModel, LoginResponseModel>(NetworkRoutes.LOGIN.rawValue,
-//       parseModel: LoginResponseModel(), method: RequestType.POST, data: model);
-
-//   if (response.data is LoginResponseModel) {
-//     return response.data;
-//   } else {
-//     return null;
-//   }
-// }

@@ -1,8 +1,8 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
-import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
-import 'package:e_commerce_application/core/constants/navigation/navigation_constants.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/view/_product/_constants/image_constants.dart';
+import 'package:e_commerce_application/view/_product/_constants/navigation/navigation_constants.dart';
 import 'package:e_commerce_application/view/auth/onboard/model/on_board_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';

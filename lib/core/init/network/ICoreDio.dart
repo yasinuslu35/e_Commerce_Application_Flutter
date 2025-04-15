@@ -1,6 +1,6 @@
 import 'package:e_commerce_application/core/base/model/base/data_result.dart';
 import 'package:e_commerce_application/core/base/model/base_model.dart';
-import 'package:e_commerce_application/core/constants/enums/http_request_enum.dart';
+import 'package:e_commerce_application/view/_product/_constants/enums/http_request_enum.dart';
 import 'package:vexana/vexana.dart';
 
 abstract class ICoreDio<E extends INetworkModel<E>>{

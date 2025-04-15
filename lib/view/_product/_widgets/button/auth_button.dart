@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 class AuthButton extends StatelessWidget {
   final IconData? icon;
   final Color? color;
-  const AuthButton({super.key, this.icon, this.color});
+  final void Function() onPressed;
+
+  const AuthButton({
+    super.key,
+    this.icon,
+    this.color,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class AuthButton extends StatelessWidget {
       height: context.width * 0.17,
       child: FloatingActionButton(
         backgroundColor: context.myColors.lavenderBlush,
-        onPressed: () {},
+        onPressed: onPressed,
         shape: RoundedRectangleBorder(
           side: BorderSide(
             color: context.myColors.authButtonColor,

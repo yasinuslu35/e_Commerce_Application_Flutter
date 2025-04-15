@@ -1,17 +1,20 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/core/components/icons/google_icons.dart';
-import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
 import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
 import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
 import 'package:e_commerce_application/view/auth/login/service/login_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../_product/_constants/enums/locale_keys_enum.dart';
 
 part 'login_view_model.g.dart';
 
@@ -28,6 +31,15 @@ abstract class _LoginViewModelBase extends BaseViewModel
 
   List<LoginAuthButtonModel> loginAuthButtonModels = [];
 
+  static const List<String> scopes = <String>[
+    'email',
+  ];
+
+  final googleSignIn = GoogleSignIn(
+    scopes: scopes,
+    serverClientId: ApplicationConstants.CLIENT_ID_WEB,
+  );
+
   @override
   void setContext(BuildContext context) => myContext = context;
 
@@ -37,18 +49,21 @@ abstract class _LoginViewModelBase extends BaseViewModel
       LoginAuthButtonModel(
         icon: AuthIcon.google,
         color: myContext.myColors.red,
+        onPressed: googleSignInButton,
       ),
     );
     loginAuthButtonModels.add(
       LoginAuthButtonModel(
         icon: Icons.apple,
         color: Colors.black,
+        onPressed: () {},
       ),
     );
     loginAuthButtonModels.add(
       LoginAuthButtonModel(
         icon: AuthIcon.facebook,
         color: Colors.blue,
+        onPressed: () {},
       ),
     );
     loginService = LoginService(
@@ -69,7 +84,8 @@ abstract class _LoginViewModelBase extends BaseViewModel
   }
 
   String? usernameValidation(String? value) {
-    if (value!.length < 3) {
+    String? newValue = value?.replaceAll(" ", "");
+    if (newValue!.length < 3) {
       return LocaleKeys.login_validUsername.locale;
     } else {
       return null;
@@ -95,20 +111,19 @@ abstract class _LoginViewModelBase extends BaseViewModel
         ),
       );
       if (response?.data != null) {
-        if (response?.data?.token?.isEmpty ?? true) return;
+
+        if (response?.data?.loginResponse.token?.isEmpty ?? true) return;
         if (scaffoldState.currentContext != null) {
           await localeManager.setStringValue(
-              PreferencesKeys.TOKEN, response!.data!.token!);
+              PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
         }
       } else if (response?.error != null) {
         final errorResult = response?.error as ErrorDataResult;
-        if(errorResult.data != null) {
-          showMessage(errorResult, myContext);
+        if (errorResult.data != null) {
+          showMessage(errorResult, scaffoldState.currentContext);
+        } else {
+          showMessage(errorResult, scaffoldState.currentContext);
         }
-        else {
-          showMessage(errorResult, myContext);
-        }
-
       }
     }
     isLoadingChange();
@@ -117,5 +132,26 @@ abstract class _LoginViewModelBase extends BaseViewModel
   void dispose() {
     emailController?.dispose();
     passwordController?.dispose();
+  }
+
+  Future<void> googleSignInButton() async {
+    final GoogleSignInAccount? account = await googleSignIn.signIn();
+    googleAuth(account);
+
+    print('account.email = ${account?.email}');
+    print('account?.displayName = ${account?.displayName}');
+  }
+
+  Future<void> googleAuth(GoogleSignInAccount? account) async {
+    final GoogleSignInAuthentication auth = await account!.authentication;
+    final idToken = auth.idToken;
+    final response = await loginService.googleSignIn(idToken!);
+
+    print("response = ${response?.data?.loginResponse.toJson()}");
+  }
+
+  Future<void> signOut() async {
+    await googleSignIn.signOut();
+    print('çıkış başarılı');
   }
 }

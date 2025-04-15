@@ -1,10 +1,10 @@
 import 'package:e_commerce_application/core/base/state/base_state.dart';
 import 'package:e_commerce_application/core/base/view/base_view.dart';
-import 'package:e_commerce_application/core/constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/cache/locale_manager.dart';
 import 'package:e_commerce_application/core/init/lang/language_service.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/view/auth/test/viewmodel/test_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,12 @@ class TestsView extends StatefulWidget {
 
 class _TestsViewState extends BaseState<TestsView> {
   late TestViewModel viewModel;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

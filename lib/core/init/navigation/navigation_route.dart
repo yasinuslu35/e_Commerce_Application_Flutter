@@ -1,9 +1,10 @@
 import 'package:e_commerce_application/view/auth/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../../view/_product/_constants/navigation/navigation_constants.dart';
 import '../../../view/auth/test/view/test_view.dart';
 import '../../components/card/not_found_navigation_widget.dart';
-import '../../constants/navigation/navigation_constants.dart';
+
 
 class NavigationRoute {
   static NavigationRoute _instance = NavigationRoute._init();

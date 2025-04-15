@@ -1,9 +1,9 @@
 import 'package:e_commerce_application/core/init/theme/light/light_tema_interface.dart';
+import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../constants/app/app_constants.dart';
 import 'app_theme.dart';
-import 'package:flutter/material.dart';
 
 class AppThemeLight extends AppTheme with ILightTheme {
   AppThemeLight._init();

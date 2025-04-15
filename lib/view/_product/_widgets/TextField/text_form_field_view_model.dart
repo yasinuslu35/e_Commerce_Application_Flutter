@@ -15,7 +15,7 @@ abstract class _TextFormFieldViewModelBase extends BaseViewModel with Store {
   void init() {}
 
   @observable
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
 
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
 

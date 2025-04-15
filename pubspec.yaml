@@ -46,6 +46,8 @@ dependencies:
   flutter_svg: ^2.0.17
   auto_size_text: ^3.0.0
   flutter_native_splash: ^2.4.6
+  google_sign_in: ^6.3.0
+  http: ^1.3.0
 
 dev_dependencies:
   flutter_test:

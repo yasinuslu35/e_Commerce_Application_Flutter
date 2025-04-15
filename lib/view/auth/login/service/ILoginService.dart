@@ -12,5 +12,7 @@ abstract class ILoginService {
 
   ILoginService(this.manager, this.scaffoldKey);
 
-  Future<DataResult<LoginResponseModel>?> fetchUserControl(LoginRequestModel model);
+  Future<DataResult<UserResponseModel>?> fetchUserControl(LoginRequestModel model);
+
+  Future<DataResult<UserResponseModel>?> googleSignIn(String idToken);
 }

@@ -18,9 +18,12 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
       viewModel: LoginViewModel(),
-      onModelReady: (model) {
-        model.setContext(context);
-        model.init();
+      onModelReady: (viewModel) {
+        viewModel.setContext(context);
+        viewModel.init();
+      },
+      onDispose: (viewModel) {
+        viewModel.dispose();
       },
       onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
         return Scaffold(
@@ -121,20 +124,22 @@ class LoginView extends StatelessWidget {
             SizedBox(
               height: context.width * 0.04,
             ),
-            buildFooterText(),
+            buildFooterText(viewModel),
           ],
         ),
       ),
     );
   }
 
-  Row buildFooterText() {
+  Row buildFooterText(LoginViewModel viewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(LocaleKeys.login_footer_createText.locale),
         TextButton(
-          onPressed: () {},
+          onPressed: () async {
+            await viewModel.signOut();
+          },
           child: Text(LocaleKeys.login_footer_signUpText.locale),
         ),
       ],
@@ -160,6 +165,7 @@ class LoginView extends StatelessWidget {
             return AuthButton(
               icon: model.icon,
               color: model.color,
+              onPressed: model.onPressed,
             );
           },
         ),
