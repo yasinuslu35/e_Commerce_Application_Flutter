@@ -51,14 +51,14 @@ class LoginView extends StatelessWidget {
               builder: (context) => viewModel.isLoading
                   ?  Container(
                 color: Colors.black.withValues(alpha: 0.5),
-                    child: Center(
-                      child: Lottie.asset(
-                        ImageConstants.instance.loadingAnimaton,
-                        width: 200,
-                        height: 200,
-                      ),
-                    ),
-                  )
+                child: Center(
+                  child: Lottie.asset(
+                    ImageConstants.instance.loadingAnimaton,
+                    width: 200,
+                    height: 200,
+                  ),
+                ),
+              )
                   : const SizedBox(),
             ),
           ],
@@ -130,8 +130,8 @@ class LoginView extends StatelessWidget {
         onPressed: viewModel.isLoading
             ? null
             : () {
-                viewModel.fetchLoginService();
-              },
+          viewModel.fetchLoginService();
+        },
         text: LocaleKeys.login_loginButton.locale,
         color: context.myColors.authButtonColor,
       ),

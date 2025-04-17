@@ -63,7 +63,9 @@ abstract class _LoginViewModelBase extends BaseViewModel
       LoginAuthButtonModel(
         icon: AuthIcon.facebook,
         color: Colors.blue,
-        onPressed: () {},
+        onPressed: () {
+
+        },
       ),
     );
     loginService = LoginService(
@@ -149,6 +151,8 @@ abstract class _LoginViewModelBase extends BaseViewModel
 
     print("response = ${response?.data?.loginResponse.toJson()}");
   }
+
+
 
   Future<void> signOut() async {
     await googleSignIn.signOut();

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 mixin class ServiceHelper {
   void showMessage(
-    //GlobalKey<ScaffoldState>? scaffoldKey,
     ErrorDataResult? errorModel,
     BuildContext? context,
   ) {
@@ -24,7 +23,7 @@ mixin class ServiceHelper {
       builder: (context) => AlertDialog(
         title: Text(
           errorModel.message ?? "",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
           ),
         ),
@@ -41,7 +40,7 @@ mixin class ServiceHelper {
               ),
         actions: [
           TextButton(
-            child: Text("Tamam"),
+            child: const Text("Tamam"),
             onPressed: () => Navigator.pop(context),
           ),
         ],

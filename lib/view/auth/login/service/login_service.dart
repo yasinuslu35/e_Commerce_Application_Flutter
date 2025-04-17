@@ -30,7 +30,11 @@ class LoginService extends ILoginService with ServiceHelper {
       }
       return DataResult(error: errorModel);
     } else {
-      return null;
+      ErrorDataResult errorDataResult = const ErrorDataResult(
+        statusCode: 500,
+        message: "Bağlantı sağlanamadı. Lütfen tekrar deneyin."
+      );
+      return DataResult(error: errorDataResult);
     }
   }
 
@@ -56,6 +60,7 @@ class LoginService extends ILoginService with ServiceHelper {
       return null;
     }
   }
+
 
 /*
   @override

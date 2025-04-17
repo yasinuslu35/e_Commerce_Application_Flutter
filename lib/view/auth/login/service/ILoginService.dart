@@ -15,4 +15,5 @@ abstract class ILoginService {
   Future<DataResult<UserResponseModel>?> fetchUserControl(LoginRequestModel model);
 
   Future<DataResult<UserResponseModel>?> googleSignIn(String idToken);
+  
 }

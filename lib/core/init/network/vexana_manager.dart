@@ -13,7 +13,10 @@ class VexanaManager {
     errorModel: const ErrorDataResult(),
     isEnableLogger: true,
     options: BaseOptions(
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
       baseUrl: Platform.isAndroid ? _androidBaseUrl : _iosBaseUrl,
     ),
+
   );
 }

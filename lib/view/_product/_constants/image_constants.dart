@@ -11,6 +11,7 @@ class ImageConstants {
   }
 
   final hotDog = "hotdogs".toPNG;
+  final loadingAnimaton = "loading_animation".toJSON;
 
   final onBoard1 = "onBoard1".toSVG;
   final onBoard2 = "onBoard2".toSVG;

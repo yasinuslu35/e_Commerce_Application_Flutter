@@ -48,6 +48,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   google_sign_in: ^6.3.0
   http: ^1.3.0
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,7 @@ flutter:
     - asset/fonts/
     - asset/svg/
     - asset/image/
+    - asset/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -27,3 +27,7 @@ extension SVGPATH on String {
 extension PNGPATH on String {
   String get toPNG => "asset/image/$this.png";
 }
+
+extension JSONPATH on String {
+  String get toJSON => "asset/animations/$this.json";
+}
