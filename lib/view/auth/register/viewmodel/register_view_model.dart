@@ -5,30 +5,30 @@ import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
 import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
+import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/view/_product/_constants/navigation/navigation_constants.dart';
 import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
-import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
-import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
-import 'package:e_commerce_application/view/auth/login/service/login_service.dart';
+import 'package:e_commerce_application/view/auth/register/model/register_request_model.dart';
+import 'package:e_commerce_application/view/auth/register/service/IRegisterService.dart';
+import 'package:e_commerce_application/view/auth/register/service/register_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../_product/_constants/enums/locale_keys_enum.dart';
+part 'register_view_model.g.dart';
 
-part 'login_view_model.g.dart';
+class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
-class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
-
-abstract class _LoginViewModelBase extends BaseViewModel
+abstract class _RegisterViewModelBase extends BaseViewModel
     with Store, ServiceHelper {
   GlobalKey<FormState> formState = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
-  late ILoginService loginService;
+  late IRegisterService registerService;
 
   TextEditingController? emailController;
   TextEditingController? passwordController;
+  TextEditingController? passwordConfirmController;
 
   List<LoginAuthButtonModel> loginAuthButtonModels = [];
 
@@ -64,18 +64,17 @@ abstract class _LoginViewModelBase extends BaseViewModel
       LoginAuthButtonModel(
         icon: AuthIcon.facebook,
         color: Colors.blue,
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
     );
-    loginService = LoginService(
+    registerService = RegisterService(
       vexanaManager.networkManager,
       scaffoldState,
     );
 
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    passwordConfirmController = TextEditingController();
   }
 
   @observable
@@ -99,41 +98,66 @@ abstract class _LoginViewModelBase extends BaseViewModel
     if (value!.isValidPassword) {
       return null;
     } else {
-      return LocaleKeys.login_validPassword.locale;
+      return LocaleKeys.register_validPassword.locale;
+    }
+  }
+
+  String? passwordConfirmValidation(String? value) {
+    if (passwordController?.text != value) {
+      return LocaleKeys.register_validPasswordConfirm.locale;
+    } else {
+      return null;
     }
   }
 
   @action
-  Future<void> fetchLoginService() async {
+  Future<void> fetchRegisterService() async {
+    final response = await registerService.fetchUserControl(
+      RegisterRequestModel(
+        username: emailController!.text,
+        password: passwordController!.text,
+        passwordConfirm: passwordConfirmController!.text,
+        firstName: 'test',
+        lastName: 'test',
+      ),
+    );
+    if (response?.data != null) {
+      if (response?.data?.loginResponse.token?.isEmpty ?? true) return;
+      if (scaffoldState.currentContext != null) {
+        await localeManager.setStringValue(
+            PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
+      }
+    } else if (response?.error != null) {
+      final errorResult = response?.error as ErrorDataResult;
+      if (errorResult.data != null) {
+        showMessage(errorResult, scaffoldState.currentContext);
+      } else {
+        showMessage(errorResult, scaffoldState.currentContext);
+      }
+    }
+  }
+
+  @action
+  Future<void> btnRegisterClicked() async {
     isLoadingChange();
     if (formState.currentState!.validate()) {
-      final response = await loginService.fetchUserControl(
-        LoginRequestModel(
-          username: emailController!.text,
-          password: passwordController!.text,
-        ),
-      );
-      if (response?.data != null) {
-
-        if (response?.data?.loginResponse.token?.isEmpty ?? true) return;
-        if (scaffoldState.currentContext != null) {
-          await localeManager.setStringValue(
-              PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
-        }
-      } else if (response?.error != null) {
-        final errorResult = response?.error as ErrorDataResult;
-        if (errorResult.data != null) {
-          showMessage(errorResult, scaffoldState.currentContext);
-        } else {
-          showMessage(errorResult, scaffoldState.currentContext);
-        }
-      }
+      print("emailController = ${emailController!.text}");
+      print("passwordController = ${passwordController!.text}");
+      print("passwordConfirmController = ${passwordConfirmController!.text}");
+      await navigation.navigateToPage(
+          path: NavigationConstants.NAME_SURNAME_VIEW,
+          object: RegisterRequestModel(
+              username: emailController!.text,
+              password: passwordController!.text,
+              passwordConfirm: passwordConfirmController!.text,
+              firstName: "firstName",
+              lastName: "lastName"));
     }
     isLoadingChange();
   }
 
-  Future<void> navigateToRegisterPage() async{
-    await navigation.navigateToPageClear(path: NavigationConstants.REGISTER_VIEW);
+  Future<void> navigateToLoginPage() async {
+    await navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }
 
   void dispose() {
@@ -144,20 +168,13 @@ abstract class _LoginViewModelBase extends BaseViewModel
   Future<void> googleSignInButton() async {
     final GoogleSignInAccount? account = await googleSignIn.signIn();
     googleAuth(account);
-
-    print('account.email = ${account?.email}');
-    print('account?.displayName = ${account?.displayName}');
   }
 
   Future<void> googleAuth(GoogleSignInAccount? account) async {
     final GoogleSignInAuthentication auth = await account!.authentication;
     final idToken = auth.idToken;
-    final response = await loginService.googleSignIn(idToken!);
-
-    print("response = ${response?.data?.loginResponse.toJson()}");
+    await registerService.googleSignIn(idToken!);
   }
-
-
 
   Future<void> signOut() async {
     await googleSignIn.signOut();

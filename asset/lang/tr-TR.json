@@ -35,5 +35,23 @@
     },
     "validUsername": "Kullanıcı adı geçersiz",
     "validPassword": "Lütfen şifrenizi giriniz"
+  },
+  "register": {
+    "welcomeText": "Hesap oluştur",
+    "email": "Kullanıcı adı veya Eposta",
+    "password": "Şifre",
+    "confirmPassword": "Şifre Onay",
+    "name": "Ad",
+    "surname": "Soyad",
+    "offerText": "Kayıt butonuna tıklayarak, halka açık teklifi kabul etmiş olursunuz.",
+    "register": "Kayıt Ol",
+    "footer":{
+      "orText": "- Veya Devam Etmek İçin -",
+      "createText": "Zaten Hesabım Var",
+      "signUpText": "Giriş Yap"
+    },
+    "validUsername": "Kullanıcı adı geçersiz",
+    "validPassword": "Lütfen şifrenizi giriniz",
+    "validPasswordConfirm": "Şifreler aynı değil"
   }
 }

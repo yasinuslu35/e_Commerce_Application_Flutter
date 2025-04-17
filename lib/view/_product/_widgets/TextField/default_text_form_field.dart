@@ -8,6 +8,7 @@ class DefaultTextFormField extends StatelessWidget {
   final IconData icon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final double value;
 
   const DefaultTextFormField({
     super.key,
@@ -15,18 +16,22 @@ class DefaultTextFormField extends StatelessWidget {
     this.icon = Icons.person,
     this.controller,
     this.validator,
-  });
+    this.value = 1,
+  }) : assert(value >= 0 && value <= 1, 'Width must be between 0 and 1');
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      decoration: InputDecoration(
-        fillColor: context.myColors.textFieldBackground,
-        filled: true,
-        prefixIcon: Icon(icon),
-        labelText: labelText.locale,
+    return SizedBox(
+      width: context.width * value,
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
+        decoration: InputDecoration(
+          fillColor: context.myColors.textFieldBackground,
+          filled: true,
+          prefixIcon: Icon(icon),
+          labelText: labelText.locale,
+        ),
       ),
     );
   }

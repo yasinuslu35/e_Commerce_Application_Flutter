@@ -97,6 +97,7 @@ class LoginView extends StatelessWidget {
             PasswordTextFormField(
               controller: viewModel.passwordController,
               validator: (p0) => viewModel.passwordValidation(p0),
+              labelText: LocaleKeys.login_password.locale,
             ),
             buildForgotTextButton(),
             buildLoginButton(context, viewModel),
@@ -167,6 +168,7 @@ class LoginView extends StatelessWidget {
         TextButton(
           onPressed: () async {
             //await viewModel.signOut();
+            await viewModel.navigateToRegisterPage();
           },
           child: Text(LocaleKeys.login_footer_signUpText.locale),
         ),
@@ -193,6 +195,7 @@ class LoginView extends StatelessWidget {
             return AuthButton(
               icon: model.icon,
               color: model.color,
+              heroTag: "buttonLogin$index",
               onPressed: model.onPressed,
             );
           },

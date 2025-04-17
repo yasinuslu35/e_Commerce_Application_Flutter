@@ -24,7 +24,7 @@ class TitleElevatedButton extends StatelessWidget {
         child: Text(
           text,
           style: context.textTheme.headlineSmall?.copyWith(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

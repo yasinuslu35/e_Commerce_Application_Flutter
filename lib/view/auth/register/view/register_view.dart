@@ -8,18 +8,18 @@ import 'package:e_commerce_application/view/_product/_widgets/TextField/default_
 import 'package:e_commerce_application/view/_product/_widgets/TextField/password_text_form_fields.dart';
 import 'package:e_commerce_application/view/_product/_widgets/button/auth_button.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
-import 'package:e_commerce_application/view/auth/login/viewmodel/login_view_model.dart';
+import 'package:e_commerce_application/view/auth/register/viewmodel/register_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lottie/lottie.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginViewModel>(
-      viewModel: LoginViewModel(),
+    return BaseView<RegisterViewModel>(
+      viewModel: RegisterViewModel(),
       onModelReady: (viewModel) {
         viewModel.setContext(context);
         viewModel.init();
@@ -27,7 +27,7 @@ class LoginView extends StatelessWidget {
       onDispose: (viewModel) {
         viewModel.dispose();
       },
-      onPageBuilder: (BuildContext context, LoginViewModel viewModel) {
+      onPageBuilder: (BuildContext context, RegisterViewModel viewModel) {
         return Stack(
           children: [
             Scaffold(
@@ -72,16 +72,16 @@ class LoginView extends StatelessWidget {
       flex: 2,
       child: Center(
         child: Text(
-          LocaleKeys.login_welcomeText.locale,
+          LocaleKeys.register_welcomeText.locale,
           style: context.textTheme.headlineMedium,
         ),
       ),
     );
   }
 
-  Expanded buildBody(BuildContext context, LoginViewModel viewModel) {
+  Expanded buildBody(BuildContext context, RegisterViewModel viewModel) {
     return Expanded(
-      flex: 5,
+      flex: 8,
       child: Form(
         key: viewModel.formState,
         child: Column(
@@ -97,17 +97,44 @@ class LoginView extends StatelessWidget {
             PasswordTextFormField(
               controller: viewModel.passwordController,
               validator: (p0) => viewModel.passwordValidation(p0),
+              labelText: LocaleKeys.register_password.locale,
             ),
-            buildForgotTextButton(),
+            SizedBox(
+              height: context.height * 0.03,
+            ),
+            PasswordTextFormField(
+              controller: viewModel.passwordConfirmController,
+              validator: (p0) => viewModel.passwordConfirmValidation(p0),
+              labelText: LocaleKeys.register_confirmPassword.locale,
+            ),
+            SizedBox(
+              height: context.height * 0.03,
+            ),
+            Text(LocaleKeys.register_offerText.locale),
+            SizedBox(
+              height: context.height * 0.03,
+            ),
             buildLoginButton(context, viewModel),
-            /*
-            Observer(
-              builder: (context) =>  viewModel.isLoading
-                  ? const CircularProgressIndicator()
-                  : const SizedBox(),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget buildFooter(BuildContext context, viewModel) {
+    return Expanded(
+      flex: 3,
+      child: Center(
+        child: Column(
+          children: [
+            Text(LocaleKeys.login_footer_orText.locale),
+            SizedBox(
+              height: context.width * 0.03,
             ),
-
-             */
+            buildAuthButtons(context, viewModel),
+            SizedBox(
+              height: context.width * 0.03,
+            ),
+            buildFooterText(viewModel),
           ],
         ),
       ),
@@ -124,51 +151,33 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Widget buildLoginButton(BuildContext context, LoginViewModel viewModel) {
+  Widget buildLoginButton(BuildContext context, RegisterViewModel viewModel) {
     return Observer(
       builder: (context) => TitleElevatedButton(
         onPressed: viewModel.isLoading
             ? null
-            : () {
-          viewModel.fetchLoginService();
+            : () async{
+          await viewModel.btnRegisterClicked();
         },
-        text: LocaleKeys.login_loginButton.locale,
+        text: LocaleKeys.register_registerButton.locale,
         color: context.myColors.authButtonColor,
       ),
     );
   }
 
-  Expanded buildFooter(BuildContext context, viewModel) {
-    return Expanded(
-      flex: 4,
-      child: Center(
-        child: Column(
-          children: [
-            Text(LocaleKeys.login_footer_orText.locale),
-            SizedBox(
-              height: context.width * 0.04,
-            ),
-            buildAuthButtons(context, viewModel),
-            SizedBox(
-              height: context.width * 0.04,
-            ),
-            buildFooterText(viewModel),
-          ],
-        ),
-      ),
-    );
-  }
 
-  Row buildFooterText(LoginViewModel viewModel) {
+
+  Row buildFooterText(RegisterViewModel viewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(LocaleKeys.login_footer_createText.locale),
+        Text(LocaleKeys.register_footer_createText.locale),
         TextButton(
           onPressed: () async {
             //await viewModel.signOut();
+            await viewModel.navigateToLoginPage();
           },
-          child: Text(LocaleKeys.login_footer_signUpText.locale),
+          child: Text(LocaleKeys.register_footer_signUpText.locale),
         ),
       ],
     );
@@ -193,6 +202,7 @@ class LoginView extends StatelessWidget {
             return AuthButton(
               icon: model.icon,
               color: model.color,
+              heroTag: "buttonRegister$index",
               onPressed: model.onPressed,
             );
           },

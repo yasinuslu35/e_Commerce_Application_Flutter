@@ -36,6 +36,24 @@
     "validUsername": "Username does not valid",
     "validPassword": "Please enter password"
   },
+  "register": {
+    "welcomeText": "Create an account!",
+    "email": "Username or Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "surname": "Surname",
+    "offerText": "By clicking the Register button, you agree to the public offer",
+    "registerButton": "Create Account",
+    "footer":{
+      "orText": "- OR Continue with -",
+      "createText": "I Already Have An Account",
+      "signUpText": "Login"
+    },
+    "validUsername": "Username does not valid",
+    "validPassword": "Please enter password",
+    "validPasswordConfirm": "Passwords do not match"
+  },
   "home": {
     "build": {
       "tabBar": {

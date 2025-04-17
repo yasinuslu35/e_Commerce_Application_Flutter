@@ -1,4 +1,6 @@
 import 'package:e_commerce_application/view/auth/login/view/login_view.dart';
+import 'package:e_commerce_application/view/auth/register/view/name_surname_view.dart';
+import 'package:e_commerce_application/view/auth/register/view/register_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../view/_product/_constants/navigation/navigation_constants.dart';
@@ -21,6 +23,10 @@ class NavigationRoute {
         return normalNavigate(const TestsView());
       case NavigationConstants.LOGIN_VIEW:
         return normalNavigate(const LoginView());
+      case NavigationConstants.REGISTER_VIEW:
+        return normalNavigate(const RegisterView());
+      case NavigationConstants.NAME_SURNAME_VIEW:
+        return normalNavigate(const NameSurnameView());
 
       default:
         return MaterialPageRoute(
