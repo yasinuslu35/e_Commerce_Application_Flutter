@@ -1,13 +1,10 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
-import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/core/components/icons/google_icons.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
 import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
-import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/view/_product/_constants/navigation/navigation_constants.dart';
-import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/register/model/register_request_model.dart';
 import 'package:e_commerce_application/view/auth/register/service/IRegisterService.dart';
@@ -21,14 +18,16 @@ part 'register_view_model.g.dart';
 class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
 abstract class _RegisterViewModelBase extends BaseViewModel
-    with Store, ServiceHelper {
+    with Store {
   GlobalKey<FormState> formState = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   late IRegisterService registerService;
 
+
   TextEditingController? emailController;
   TextEditingController? passwordController;
   TextEditingController? passwordConfirmController;
+
 
   List<LoginAuthButtonModel> loginAuthButtonModels = [];
 
@@ -75,6 +74,7 @@ abstract class _RegisterViewModelBase extends BaseViewModel
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordConfirmController = TextEditingController();
+
   }
 
   @observable
@@ -111,47 +111,20 @@ abstract class _RegisterViewModelBase extends BaseViewModel
   }
 
   @action
-  Future<void> fetchRegisterService() async {
-    final response = await registerService.fetchUserControl(
-      RegisterRequestModel(
-        username: emailController!.text,
-        password: passwordController!.text,
-        passwordConfirm: passwordConfirmController!.text,
-        firstName: 'test',
-        lastName: 'test',
-      ),
-    );
-    if (response?.data != null) {
-      if (response?.data?.loginResponse.token?.isEmpty ?? true) return;
-      if (scaffoldState.currentContext != null) {
-        await localeManager.setStringValue(
-            PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
-      }
-    } else if (response?.error != null) {
-      final errorResult = response?.error as ErrorDataResult;
-      if (errorResult.data != null) {
-        showMessage(errorResult, scaffoldState.currentContext);
-      } else {
-        showMessage(errorResult, scaffoldState.currentContext);
-      }
-    }
-  }
-
-  @action
   Future<void> btnRegisterClicked() async {
     isLoadingChange();
     if (formState.currentState!.validate()) {
-      print("emailController = ${emailController!.text}");
-      print("passwordController = ${passwordController!.text}");
-      print("passwordConfirmController = ${passwordConfirmController!.text}");
+      print("emailController.text = ${emailController!.text}");
+      print("passwordController.text = ${passwordController!.text}");
+      print("passwordConfirmController.text = ${passwordConfirmController!.text}");
       await navigation.navigateToPage(
-          path: NavigationConstants.NAME_SURNAME_VIEW,
-          object: RegisterRequestModel(
-              username: emailController!.text,
-              password: passwordController!.text,
-              passwordConfirm: passwordConfirmController!.text,
-              firstName: "firstName",
-              lastName: "lastName"));
+        path: NavigationConstants.NAME_SURNAME_VIEW,
+        object: RegisterRequestModel(
+          username: emailController!.text,
+          password: passwordController!.text,
+          passwordConfirm: passwordConfirmController!.text,
+        ),
+      );
     }
     isLoadingChange();
   }
@@ -163,6 +136,7 @@ abstract class _RegisterViewModelBase extends BaseViewModel
   void dispose() {
     emailController?.dispose();
     passwordController?.dispose();
+    passwordConfirmController?.dispose();
   }
 
   Future<void> googleSignInButton() async {

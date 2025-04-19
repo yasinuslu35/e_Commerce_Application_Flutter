@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_view_model.dart';
+part of 'name_surname_view_model.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'register_view_model.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
+mixin _$NameSurnameViewModel on _NameSurnameViewModelBase, Store {
   late final _$isLoadingAtom =
-      Atom(name: '_RegisterViewModelBase.isLoading', context: context);
+      Atom(name: '_NameSurnameViewModelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -25,27 +25,27 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  late final _$btnRegisterClickedAsyncAction = AsyncAction(
-      '_RegisterViewModelBase.btnRegisterClicked',
+  late final _$fetchRegisterServiceAsyncAction = AsyncAction(
+      '_NameSurnameViewModelBase.fetchRegisterService',
       context: context);
 
   @override
-  Future<void> btnRegisterClicked() {
-    return _$btnRegisterClickedAsyncAction
-        .run(() => super.btnRegisterClicked());
+  Future<void> fetchRegisterService(BuildContext context) {
+    return _$fetchRegisterServiceAsyncAction
+        .run(() => super.fetchRegisterService(context));
   }
 
-  late final _$_RegisterViewModelBaseActionController =
-      ActionController(name: '_RegisterViewModelBase', context: context);
+  late final _$_NameSurnameViewModelBaseActionController =
+      ActionController(name: '_NameSurnameViewModelBase', context: context);
 
   @override
   void isLoadingChange() {
-    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
-        name: '_RegisterViewModelBase.isLoadingChange');
+    final _$actionInfo = _$_NameSurnameViewModelBaseActionController
+        .startAction(name: '_NameSurnameViewModelBase.isLoadingChange');
     try {
       return super.isLoadingChange();
     } finally {
-      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+      _$_NameSurnameViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 

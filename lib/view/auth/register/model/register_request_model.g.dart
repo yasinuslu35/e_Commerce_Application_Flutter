@@ -12,8 +12,8 @@ RegisterRequestModel _$RegisterRequestModelFromJson(
       username: json['username'] as String,
       password: json['password'] as String,
       passwordConfirm: json['passwordConfirm'] as String,
-      firstName: json['firstName'] as String,
-      lastName: json['lastName'] as String,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
     );
 
 Map<String, dynamic> _$RegisterRequestModelToJson(

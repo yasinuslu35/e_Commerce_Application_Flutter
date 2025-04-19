@@ -8,15 +8,15 @@ class RegisterRequestModel extends INetworkModel<RegisterRequestModel> {
   final String username;
   final String password;
   final String passwordConfirm;
-  final String firstName;
-  final String lastName;
+  final String? firstName;
+  final String? lastName;
 
   const RegisterRequestModel({
     required this.username,
     required this.password,
     required this.passwordConfirm,
-    required this.firstName,
-    required this.lastName,
+    this.firstName,
+    this.lastName,
   });
 
   @override
