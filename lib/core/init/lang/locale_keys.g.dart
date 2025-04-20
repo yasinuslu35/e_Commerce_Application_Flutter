@@ -57,6 +57,11 @@ abstract class  LocaleKeys {
   static const home_build_tabBar = 'home.build.tabBar';
   static const home_build_subTitle = 'home.build.subTitle';
   static const home_build = 'home.build';
+  static const home_profile_appBar_text = 'home.profile.appBar.text';
+  static const home_profile_appBar = 'home.profile.appBar';
+  static const home_profile_body_helloText = 'home.profile.body.helloText';
+  static const home_profile_body = 'home.profile.body';
+  static const home_profile = 'home.profile';
   static const home = 'home';
 
 }

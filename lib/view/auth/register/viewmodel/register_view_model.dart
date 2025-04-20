@@ -1,10 +1,14 @@
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
+import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/core/components/icons/google_icons.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/core/init/notifier/user_notifier.dart';
 import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
+import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:e_commerce_application/view/_product/_constants/navigation/navigation_constants.dart';
+import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_auth_button_model.dart';
 import 'package:e_commerce_application/view/auth/register/model/register_request_model.dart';
 import 'package:e_commerce_application/view/auth/register/service/IRegisterService.dart';
@@ -12,22 +16,20 @@ import 'package:e_commerce_application/view/auth/register/service/register_servi
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 
 part 'register_view_model.g.dart';
 
 class RegisterViewModel = _RegisterViewModelBase with _$RegisterViewModel;
 
-abstract class _RegisterViewModelBase extends BaseViewModel
-    with Store {
+abstract class _RegisterViewModelBase extends BaseViewModel with Store, ServiceHelper {
   GlobalKey<FormState> formState = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
   late IRegisterService registerService;
 
-
   TextEditingController? emailController;
   TextEditingController? passwordController;
   TextEditingController? passwordConfirmController;
-
 
   List<LoginAuthButtonModel> loginAuthButtonModels = [];
 
@@ -74,7 +76,6 @@ abstract class _RegisterViewModelBase extends BaseViewModel
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordConfirmController = TextEditingController();
-
   }
 
   @observable
@@ -114,17 +115,21 @@ abstract class _RegisterViewModelBase extends BaseViewModel
   Future<void> btnRegisterClicked() async {
     isLoadingChange();
     if (formState.currentState!.validate()) {
-      print("emailController.text = ${emailController!.text}");
-      print("passwordController.text = ${passwordController!.text}");
-      print("passwordConfirmController.text = ${passwordConfirmController!.text}");
-      await navigation.navigateToPage(
-        path: NavigationConstants.NAME_SURNAME_VIEW,
-        object: RegisterRequestModel(
-          username: emailController!.text,
-          password: passwordController!.text,
-          passwordConfirm: passwordConfirmController!.text,
-        ),
-      );
+      final result = await registerService.isUserExist(emailController!.text);
+      if(result?.error != null) {
+        final errorResult= result?.error as ErrorDataResult;
+        showMessage(errorResult, scaffoldState.currentContext);
+      }
+      else {
+        await navigation.navigateToPage(
+          path: NavigationConstants.NAME_SURNAME_VIEW,
+          object: RegisterRequestModel(
+            username: emailController!.text,
+            password: passwordController!.text,
+            passwordConfirm: passwordConfirmController!.text,
+          ),
+        );
+      }
     }
     isLoadingChange();
   }
@@ -132,6 +137,12 @@ abstract class _RegisterViewModelBase extends BaseViewModel
   Future<void> navigateToLoginPage() async {
     await navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }
+
+  Future<void> navigateToHomePage() async {
+    await navigation.navigateToPageClear(
+        path: NavigationConstants.TEMPLATE_VIEW);
+  }
+
 
   void dispose() {
     emailController?.dispose();
@@ -147,7 +158,23 @@ abstract class _RegisterViewModelBase extends BaseViewModel
   Future<void> googleAuth(GoogleSignInAccount? account) async {
     final GoogleSignInAuthentication auth = await account!.authentication;
     final idToken = auth.idToken;
-    await registerService.googleSignIn(idToken!);
+    final response = await registerService.googleSignIn(idToken!);
+    await localeManager.setStringValue(
+        PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
+    await localeManager.setStringValue(
+        PreferencesKeys.USER, response.data!.toJson().toString());
+
+    final double tokenExpireDate = response.data!.loginResponse.expiresIn!;
+
+    final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
+    final expireTimeStamp = currentTimestamp + tokenExpireDate;
+
+
+    await localeManager.setDoubleValue(PreferencesKeys.EXPIRE_DATE,
+        expireTimeStamp);
+
+    Provider.of<UserNotifier>(myContext, listen: false).setUser();
+    navigateToHomePage();
   }
 
   Future<void> signOut() async {

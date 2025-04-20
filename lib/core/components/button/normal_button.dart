@@ -4,20 +4,17 @@ import 'package:flutter/material.dart';
 class NormalButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
-  final Color? color;
 
   const NormalButton({
     super.key,
     required this.child,
     required this.onPressed,
-    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: color,
         elevation: 10,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,

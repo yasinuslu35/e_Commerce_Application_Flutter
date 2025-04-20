@@ -53,5 +53,24 @@
     "validUsername": "Kullanıcı adı geçersiz",
     "validPassword": "Lütfen şifrenizi giriniz",
     "validPasswordConfirm": "Şifreler aynı değil"
+  },
+  "home": {
+    "build": {
+      "tabBar": {
+        "tab1": "En Son",
+        "tab2": "Dekorasyon",
+        "tab3": "Müzik",
+        "tab4": "Stil"
+      },
+      "subTitle": "Senin için önerilenler"
+    },
+    "profile": {
+      "appBar": {
+        "text": "Aktivitem"
+      },
+      "body": {
+        "helloText": "Merhaba, "
+      }
+    }
   }
 }

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:e_commerce_application/core/base/model/base_view_model.dart';
 import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/core/components/icons/google_icons.dart';
 import 'package:e_commerce_application/core/extension/context_extension.dart';
 import 'package:e_commerce_application/core/extension/string_extension.dart';
 import 'package:e_commerce_application/core/init/lang/locale_keys.g.dart';
+import 'package:e_commerce_application/core/init/notifier/user_notifier.dart';
 import 'package:e_commerce_application/view/_product/_constants/app/app_constants.dart';
 import 'package:e_commerce_application/view/_product/_constants/navigation/navigation_constants.dart';
 import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
@@ -14,6 +17,7 @@ import 'package:e_commerce_application/view/auth/login/service/login_service.dar
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 
 import '../../../_product/_constants/enums/locale_keys_enum.dart';
 
@@ -64,9 +68,7 @@ abstract class _LoginViewModelBase extends BaseViewModel
       LoginAuthButtonModel(
         icon: AuthIcon.facebook,
         color: Colors.blue,
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
     );
     loginService = LoginService(
@@ -114,11 +116,25 @@ abstract class _LoginViewModelBase extends BaseViewModel
         ),
       );
       if (response?.data != null) {
-
         if (response?.data?.loginResponse.token?.isEmpty ?? true) return;
         if (scaffoldState.currentContext != null) {
           await localeManager.setStringValue(
               PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
+          await localeManager.setStringValue(
+              PreferencesKeys.USER, jsonEncode(response.data!.toJson()));
+
+          final double tokenExpireDate = response.data!.loginResponse.expiresIn!;
+
+          final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
+          final expireTimeStamp = currentTimestamp + tokenExpireDate;
+
+
+          await localeManager.setDoubleValue(PreferencesKeys.EXPIRE_DATE,
+              expireTimeStamp);
+
+
+          await Provider.of<UserNotifier>(myContext, listen: false).setUser();
+          navigateToHomePage();
         }
       } else if (response?.error != null) {
         final errorResult = response?.error as ErrorDataResult;
@@ -132,8 +148,14 @@ abstract class _LoginViewModelBase extends BaseViewModel
     isLoadingChange();
   }
 
-  Future<void> navigateToRegisterPage() async{
-    await navigation.navigateToPageClear(path: NavigationConstants.REGISTER_VIEW);
+  Future<void> navigateToRegisterPage() async {
+    await navigation.navigateToPageClear(
+        path: NavigationConstants.REGISTER_VIEW);
+  }
+
+  Future<void> navigateToHomePage() async {
+    await navigation.navigateToPageClear(
+        path: NavigationConstants.TEMPLATE_VIEW);
   }
 
   void dispose() {
@@ -144,20 +166,28 @@ abstract class _LoginViewModelBase extends BaseViewModel
   Future<void> googleSignInButton() async {
     final GoogleSignInAccount? account = await googleSignIn.signIn();
     googleAuth(account);
-
-    print('account.email = ${account?.email}');
-    print('account?.displayName = ${account?.displayName}');
   }
 
   Future<void> googleAuth(GoogleSignInAccount? account) async {
     final GoogleSignInAuthentication auth = await account!.authentication;
     final idToken = auth.idToken;
     final response = await loginService.googleSignIn(idToken!);
+    await localeManager.setStringValue(
+        PreferencesKeys.TOKEN, response!.data!.loginResponse.token!);
+    await localeManager.setStringValue(
+        PreferencesKeys.USER, response.data!.toJson().toString());
 
-    print("response = ${response?.data?.loginResponse.toJson()}");
+    final double tokenExpireDate = response.data!.loginResponse.expiresIn!;
+
+    final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
+    final expireTimeStamp = currentTimestamp + tokenExpireDate;
+
+
+    await localeManager.setDoubleValue(PreferencesKeys.EXPIRE_DATE,
+        expireTimeStamp);
+    Provider.of<UserNotifier>(myContext, listen: false).setUser();
+    navigateToHomePage();
   }
-
-
 
   Future<void> signOut() async {
     await googleSignIn.signOut();

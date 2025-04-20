@@ -5,4 +5,5 @@ class NavigationConstants {
   static const NAME_SURNAME_VIEW = "/nameSurname";
   static const REGISTER_VIEW = "/register";
   static const ON_BOARD = "/onBoard";
+  static const TEMPLATE_VIEW = "/template";
 }

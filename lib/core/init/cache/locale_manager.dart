@@ -1,4 +1,3 @@
-
 import 'package:e_commerce_application/view/_product/_constants/enums/locale_keys_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,9 +26,21 @@ class LocaleManager {
     await _preferences!.setString(key.toString(), value);
   }
 
+  Future<void> setDoubleValue(PreferencesKeys key, double value) async {
+    await _preferences!.setDouble(key.toString(), value);
+  }
+
   Future<void> setBooleanValue(PreferencesKeys key, bool value) async {
     await _preferences!.setBool(key.toString(), value);
   }
+
+  Future<bool> removeValue(PreferencesKeys key) async {
+    final bool isRemoved = await _preferences!.remove(key.toString());
+    return isRemoved;
+  }
+
+  double getDoubleValue(PreferencesKeys key) =>
+      _preferences?.getDouble(key.toString()) ?? 0.0;
 
   String getStringValue(PreferencesKeys key) =>
       _preferences?.getString(key.toString()) ?? "";

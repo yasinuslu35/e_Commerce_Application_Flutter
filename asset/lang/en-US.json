@@ -63,6 +63,14 @@
         "tab4": "Style"
       },
       "subTitle": "Recommended for you"
+    },
+    "profile": {
+      "appBar": {
+        "text": "My Activity"
+      },
+      "body": {
+        "helloText": "Hello, "
+      }
     }
   }
 }

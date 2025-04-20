@@ -19,7 +19,7 @@ Map<String, dynamic> _$BaseEntityModelToJson(BaseEntityModel instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'message': instance.message,
-      'data': instance.data,
+      'data': instance.data?.toJson(),
     };
 
 UserResponseModel _$UserResponseModelFromJson(Map<String, dynamic> json) =>
@@ -50,7 +50,7 @@ Map<String, dynamic> _$UserResponseModelToJson(UserResponseModel instance) =>
       'phone': instance.phone,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
-      'loginResponse': instance.loginResponse,
+      'loginResponse': instance.loginResponse.toJson(),
     };
 
 LoginResponseModel _$LoginResponseModelFromJson(Map<String, dynamic> json) =>

@@ -19,7 +19,6 @@ class TitleElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NormalButton(
       onPressed: onPressed,
-      color: color,
       child: Center(
         child: Text(
           text,

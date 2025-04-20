@@ -18,8 +18,9 @@ class ColorSchemeLight {
   final Color darkGray = const Color(0xff676870);
   final Color black = const Color(0xff020306);
   final Color blue = const Color(0xFF0A84FF);
+  final Color appBlue  = const Color(0xff004CFF);
   final Color green = const Color(0xFF32D74B);
-  final Color scaffoldColor = Colors.white;
+  final Color scaffoldColor = const Color(0xffefefef);
   final Color orange = const Color(0xffffc93c);
   final Color lightRed = const Color(0xfff9506d);
   final Color lavenderBlush = const Color(0xffFCF3F6);

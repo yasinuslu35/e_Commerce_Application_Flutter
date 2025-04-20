@@ -26,10 +26,10 @@ class AuthButton extends StatelessWidget {
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-            color: context.myColors.authButtonColor,
+            color: context.myColors.appBlue,
             width: 2.0,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
         ),
         child: Icon(
           icon,

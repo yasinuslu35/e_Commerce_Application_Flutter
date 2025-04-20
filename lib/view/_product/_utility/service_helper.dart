@@ -8,14 +8,16 @@ mixin class ServiceHelper {
   ) {
     if (errorModel == null) return;
     List<String> valuesList = [];
-    valuesList.add(
-      errorModel.data
-              ?.toJson()
-              ?.values
-              .where((element) => element != null && element is! int)
-              .toString() ??
-          "",
-    );
+    if(errorModel.data is Map<String, dynamic>) {
+      valuesList = (errorModel.data as Map<String, dynamic>)
+          .values
+          .where((element) => element != null && element is! int)
+          .map((e) => e.toString())
+          .toList();
+    }
+    else if(errorModel.data is String) {
+      valuesList.add(errorModel.data.toString());
+    }
 
     if (context == null) return;
     showDialog(

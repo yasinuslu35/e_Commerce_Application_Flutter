@@ -73,6 +73,8 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
   Future<void> completeToOnBoard() async {
     changeLoading();
     await localeManager.setBooleanValue(PreferencesKeys.IS_FIRST_APP, false);
+    print(
+        "isFirstApp onBoard içi = ${localeManager.getBooleanValue(PreferencesKeys.IS_FIRST_APP)}");
     changeLoading();
     navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }
@@ -80,7 +82,7 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
   @action
   void prevButton() {
     pageController.animateToPage(
-      currentPageIndex- 1,
+      currentPageIndex - 1,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
@@ -92,7 +94,7 @@ abstract class _OnBoardViewModelBase extends BaseViewModel with Store {
       completeToOnBoard();
     } else {
       pageController.animateToPage(
-        currentPageIndex+ 1,
+        currentPageIndex + 1,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );

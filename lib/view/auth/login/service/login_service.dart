@@ -1,7 +1,7 @@
 import 'package:e_commerce_application/core/base/model/base/data_result.dart';
 import 'package:e_commerce_application/core/base/model/error/error_data_result.dart';
 import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
-import 'package:e_commerce_application/view/_product/enum/network_route_enum.dart';
+import 'package:e_commerce_application/view/_product/_enum/network_route_enum.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_request_model.dart';
 import 'package:e_commerce_application/view/auth/login/model/login_response_model.dart';
 import 'package:e_commerce_application/view/auth/login/service/ILoginService.dart';
@@ -25,9 +25,7 @@ class LoginService extends ILoginService with ServiceHelper {
     if (successModel != null) {
       return DataResult(data: successModel);
     } else if (errorModel != null) {
-      if (errorModel is ErrorDataResult) {
-        return DataResult(error: errorModel);
-      }
+      final errorModel = response.error?.model as ErrorDataResult;
       return DataResult(error: errorModel);
     } else {
       ErrorDataResult errorDataResult = const ErrorDataResult(

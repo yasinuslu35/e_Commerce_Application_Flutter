@@ -19,12 +19,33 @@ class AppThemeLight extends AppTheme with ILightTheme {
   ThemeData get theme => ThemeData(
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: colorSchemeLight.authButtonColor,
+            foregroundColor: colorSchemeLight.appBlue,
           ),
         ),
+        iconTheme: ThemeData.light().iconTheme.copyWith(
+              color: colorSchemeLight.appBlue,
+            ),
+        navigationBarTheme: ThemeData.light().navigationBarTheme.copyWith(
+              backgroundColor: Colors.transparent,
+              indicatorColor: Colors.transparent,
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
+              iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+                (states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return const IconThemeData(color: Colors.black);
+                  }
+                  return IconThemeData(color: colorSchemeLight.appBlue);
+                },
+              ),
+            ),
         colorScheme: _appColorScheme,
         textTheme: textTheme(),
         inputDecorationTheme: inputDecorationTheme(),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorSchemeLight.appBlue,
+          ),
+        ),
         floatingActionButtonTheme:
             ThemeData.light().floatingActionButtonTheme.copyWith(
                   shape: RoundedRectangleBorder(
@@ -46,12 +67,12 @@ class AppThemeLight extends AppTheme with ILightTheme {
       focusColor: Colors.black12,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: colorSchemeLight.red,
+          color: colorSchemeLight.appBlue,
         ),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: colorSchemeLight.red,
+          color: colorSchemeLight.appBlue,
         ),
       ),
       focusedBorder: OutlineInputBorder(
@@ -88,7 +109,6 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   TextTheme textTheme() {
     return ThemeData.light().textTheme.copyWith(
-
           headlineLarge: textThemeLight.headlineLarge,
           headlineMedium: textThemeLight.headlineMedium.copyWith(
             color: Colors.black,

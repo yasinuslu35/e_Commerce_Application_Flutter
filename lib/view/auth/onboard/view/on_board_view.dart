@@ -15,6 +15,7 @@ class OnBoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BaseView<OnBoardViewModel>(
       viewModel: OnBoardViewModel(),
       onModelReady: (model) {
@@ -22,17 +23,20 @@ class OnBoardView extends StatelessWidget {
         model.init();
       },
       onPageBuilder: (BuildContext context, OnBoardViewModel viewModel) {
+        final AppBar appBar = buildAppBar(viewModel);
+        final PageView pageView = buildPageView(viewModel);
+        final Row rowFooter = buildRowFooter(context, viewModel);
         return Scaffold(
-          appBar: buildAppBar(viewModel),
+          appBar: appBar,
           body: Padding(
             padding: context.paddingNormalHorizontal,
             child: Column(
               children: [
                 const Spacer(flex: 1),
-                Expanded(flex: 5, child: buildPageView(viewModel)),
+                Expanded(flex: 5, child: pageView),
                 Expanded(
                   flex: 2,
-                  child: buildRowFooter(context, viewModel),
+                  child: rowFooter,
                 ),
               ],
             ),
@@ -43,9 +47,10 @@ class OnBoardView extends StatelessWidget {
   }
 
   AppBar buildAppBar(OnBoardViewModel viewModel) {
+    final Observer appBarText = buildAppBarText(viewModel);
     return AppBar(
       backgroundColor: Colors.transparent,
-      leading: buildAppBarText(viewModel),
+      leading: appBarText,
       actions: [
         OnboardTextButton(
           viewModel: viewModel,

@@ -63,26 +63,3 @@ class LoginView extends StatelessWidget {
     );
   }
 }
-
-/*
-ListView.separated(
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              width: context.width * 0.05,
-            );
-          },
-          itemCount: 3,
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            LoginAuthButtonModel model = viewModel.loginAuthButtonModels[index];
-            return AuthButton(
-              icon: model.icon,
-              color: model.color,
-              heroTag: "buttonLogin$index",
-              onPressed: model.onPressed,
-            );
-          },
-        ),
-
- */

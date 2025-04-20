@@ -1,5 +1,5 @@
 import 'package:e_commerce_application/view/_product/_utility/service_helper.dart';
-import 'package:e_commerce_application/view/_product/enum/network_route_enum.dart';
+import 'package:e_commerce_application/view/_product/_enum/network_route_enum.dart';
 import 'package:e_commerce_application/view/home/build/feed/model/brand_response_model.dart';
 import 'package:e_commerce_application/view/home/build/feed/service/IBuildFeedService.dart';
 import 'package:vexana/vexana.dart';

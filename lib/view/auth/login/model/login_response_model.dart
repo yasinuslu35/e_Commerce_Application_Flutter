@@ -3,7 +3,7 @@ import 'package:vexana/vexana.dart';
 
 part 'login_response_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class BaseEntityModel extends INetworkModel<BaseEntityModel> {
   final int? statusCode;
   final String? message;
@@ -29,7 +29,7 @@ class BaseEntityModel extends INetworkModel<BaseEntityModel> {
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class UserResponseModel extends INetworkModel<UserResponseModel> {
   final int id;
   final String firstName;

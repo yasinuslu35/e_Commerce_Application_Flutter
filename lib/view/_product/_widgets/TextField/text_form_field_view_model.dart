@@ -9,7 +9,7 @@ class TextFormFieldViewModel = _TextFormFieldViewModelBase
 
 abstract class _TextFormFieldViewModelBase extends BaseViewModel with Store {
   @override
-  void setContext(BuildContext context) => this.myContext = context;
+  void setContext(BuildContext context) => myContext = context;
 
   @override
   void init() {}

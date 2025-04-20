@@ -25,7 +25,6 @@ Future<void> main() async {
 
 Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await LocaleManager.preferencesInit();
   await EasyLocalization.ensureInitialized();
 }
 
