@@ -117,6 +117,18 @@ class AppThemeLight extends AppTheme with ILightTheme {
           headlineSmall: textThemeLight.headlineSmall.copyWith(
             color: Colors.black,
           ),
+          bodyLarge: textThemeLight.bodyLarge,
+          bodyMedium: textThemeLight.bodyMedium,
+          bodySmall: textThemeLight.bodySmall,
+          displayLarge: textThemeLight.displayLarge,
+          displayMedium: textThemeLight.displayMedium,
+          displaySmall: textThemeLight.displaySmall,
+          labelLarge: textThemeLight.labelLarge,
+          labelMedium: textThemeLight.labelMedium,
+          labelSmall: textThemeLight.labelSmall,
+          titleLarge: textThemeLight.titleLarge,
+          titleMedium: textThemeLight.titleMedium,
+          titleSmall: textThemeLight.titleSmall,
         );
   }
 

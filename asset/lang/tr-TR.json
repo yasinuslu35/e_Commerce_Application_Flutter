@@ -69,7 +69,20 @@
         "text": "Aktivitem"
       },
       "body": {
-        "helloText": "Merhaba, "
+        "helloText": "Merhaba, ",
+        "titleViewed": "Son görüntülenen",
+        "titleOrderText": "Emirlerim",
+        "orders": {
+          "toPay": "Ödemek",
+          "toReceive": "Satın almak",
+          "toReview": "Gözden geçirmek"
+        },
+        "items": {
+          "newItemsText": "En Yeni Ürünler",
+          "mostPopularText": "En Popüler",
+          "categoriesText": "Kategoriler",
+          "seeAllText": "Hepsini Gör"
+        }
       }
     }
   }

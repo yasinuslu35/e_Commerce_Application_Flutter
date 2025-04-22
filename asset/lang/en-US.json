@@ -69,7 +69,20 @@
         "text": "My Activity"
       },
       "body": {
-        "helloText": "Hello, "
+        "titleHelloText": "Hello, ",
+        "titleViewedText": "Recently viewed",
+        "titleOrderText": "My Orders",
+        "orders": {
+          "toPay": "To Pay",
+          "toReceive": "To Receive",
+          "toReview": "To Review"
+        },
+        "items": {
+          "newItemsText": "New Items",
+          "mostPopularText": "Most Popular",
+          "categoriesText": "Categories",
+          "seeAllText": "See All"
+        }
       }
     }
   }
